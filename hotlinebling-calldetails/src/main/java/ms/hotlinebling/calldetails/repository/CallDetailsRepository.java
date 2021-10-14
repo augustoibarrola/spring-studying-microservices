@@ -1,0 +1,12 @@
+package ms.hotlinebling.calldetails.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import ms.hotlinebling.calldetails.entity.CallDetails;
+
+public interface CallDetailsRepository extends JpaRepository<CallDetails, Long> 
+{
+	List<CallDetails> findByCalledBy(long calledBy);
+}
