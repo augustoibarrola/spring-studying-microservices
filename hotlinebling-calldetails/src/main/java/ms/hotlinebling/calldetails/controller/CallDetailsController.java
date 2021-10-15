@@ -30,4 +30,7 @@ public class CallDetailsController {
 		
 		return callDetailsService.getCustomerCallDetails(phoneNo);
 	}
+	/*
+	 * http://localhost:8100/customers/303030/calldetails
+	 */
 }
