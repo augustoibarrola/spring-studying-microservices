@@ -25,7 +25,7 @@ public class CallDetailsService
 	{
 		logger.info("Calldetails request for customer ()", phoneNo);
 		
-		List<CallDetails> callDetails = callDetailsRepo.findByCalledBy(phoneNo);
+		List<CallDetails> callDetails = callDetailsRepo.findByCallFrom(phoneNo);
 		
 		List<CallDetailsDTO> callDetailsDTO = new ArrayList<>();
 		

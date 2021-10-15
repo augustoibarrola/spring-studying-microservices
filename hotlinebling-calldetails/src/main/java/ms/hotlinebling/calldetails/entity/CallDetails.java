@@ -3,16 +3,20 @@ package ms.hotlinebling.calldetails.entity;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "CallDetails")
 public class CallDetails {
 	
 	@Id
 	@GeneratedValue
 	long call_id;
 	@Column(nullable = false)
-	long call_from;
+	long callFrom;
 	@Column(nullable = false)
 	long call_to;
 	@Column(nullable = false)
@@ -27,10 +31,10 @@ public class CallDetails {
 		this.call_id = call_id;
 	}
 	public long getCall_from() {
-		return call_from;
+		return callFrom;
 	}
 	public void setCall_from(long call_from) {
-		this.call_from = call_from;
+		this.callFrom = call_from;
 	}
 	public long getCall_to() {
 		return call_to;
