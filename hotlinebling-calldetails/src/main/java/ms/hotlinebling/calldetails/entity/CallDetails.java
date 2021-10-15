@@ -11,55 +11,61 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CallDetails")
 public class CallDetails {
-	
+
 	@Id
 	@GeneratedValue
-	long call_id;
+	long callId;
 	@Column(nullable = false)
 	long callFrom;
 	@Column(nullable = false)
-	long call_to;
+	long callTo;
 	@Column(nullable = false)
 	Date call_on;
 	@Column(nullable = false)
 	int duration;
-	
-	public long getCall_id() {
-		return call_id;
+
+	public long getCallId() {
+		return callId;
 	}
-	public void setCall_id(long call_id) {
-		this.call_id = call_id;
+
+	public void setCallId(long call_id) {
+		this.callId = call_id;
 	}
-	public long getCall_from() {
+
+	public long getCallFrom() {
 		return callFrom;
 	}
-	public void setCall_from(long call_from) {
+
+	public void setCallFrom(long call_from) {
 		this.callFrom = call_from;
 	}
-	public long getCall_to() {
-		return call_to;
+
+	public long getCallTo() {
+		return callTo;
 	}
-	public void setCall_to(long call_to) {
-		this.call_to = call_to;
+
+	public void setCallTo(long call_to) {
+		this.callTo = call_to;
 	}
-	public Date getCall_on() {
+
+	public Date getCallOn() {
 		return call_on;
 	}
-	public void setCall_on(Date call_on) {
+
+	public void setCallOn(Date call_on) {
 		this.call_on = call_on;
 	}
+
 	public int getDuration() {
 		return duration;
 	}
+
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
 }
 
-
-
 /*
- * QUESTION: What is the difference between
- * java.sql.Date and java.util.Date 
+ * QUESTION: What is the difference between java.sql.Date and java.util.Date
  */

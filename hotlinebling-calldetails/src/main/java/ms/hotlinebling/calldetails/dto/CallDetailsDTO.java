@@ -57,9 +57,9 @@ public class CallDetailsDTO {
 	{
 		CallDetailsDTO callDetailsDTO = new CallDetailsDTO();
 		
-		callDetailsDTO.setCall_from(callDetails.getCall_from());
-		callDetailsDTO.setCall_to(callDetails.getCall_to());
-		callDetailsDTO.setCall_on(callDetails.getCall_on());
+		callDetailsDTO.setCall_from(callDetails.getCallFrom());
+		callDetailsDTO.setCall_to(callDetails.getCallTo());
+		callDetailsDTO.setCall_on(callDetails.getCallOn());
 		callDetailsDTO.setDuration(callDetails.getDuration());
 		
 		return callDetailsDTO;
