@@ -17,4 +17,9 @@ public class HotlineblingDiscoveryApplication {
 /*
  * @EnableEurekaServer
  * - marks the application as a Eureka Server 
+ * 
+ * 
+ * - having both eureka-server and eureka-client
+ * 	 both enabled in pom.xml prevents the application 
+ * 	 from starting successfully.  
  * */
