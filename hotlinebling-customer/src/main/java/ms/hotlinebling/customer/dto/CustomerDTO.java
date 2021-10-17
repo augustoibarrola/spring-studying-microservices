@@ -12,7 +12,6 @@ public class CustomerDTO
 	String address;
 	PlanDTO currentPlan;
 	String password;
-	List<Long> friendsAndFamily;
 	
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -50,12 +49,6 @@ public class CustomerDTO
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Long> getFriendsAndFamily() {
-		return friendsAndFamily;
-	}
-	public void setFriendsAndFamily(List<Long> friendsAndFamily) {
-		this.friendsAndFamily = friendsAndFamily;
-	}
 	public static CustomerDTO valueOf(Customer customer)
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
@@ -64,7 +57,7 @@ public class CustomerDTO
 		customerDTO.setName(customer.getName());
 		customerDTO.setAge(customer.getAge());
 		customerDTO.setAddress(customer.getAddress());
-		customerDTO.setAddress(customer.getAddress());
+		customerDTO.setPassword(customer.getPassword());
 		
 		PlanDTO planDTO = new PlanDTO();
 		planDTO.setPlanId(customer.getPlanId());

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 public class Customer {
 	@Id
 	@GeneratedValue
+	@Column(name = "customer_id", nullable = false)
+	int id;
 	long phoneNumber;
 	@Column(name = "customer_name", nullable = false)
 	String name;

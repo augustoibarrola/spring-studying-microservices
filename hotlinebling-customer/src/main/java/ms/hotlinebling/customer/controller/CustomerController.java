@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
+import ms.hotlinebling.customer.dto.PlanDTO;
 import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
@@ -22,24 +23,19 @@ public class CustomerController
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
 	@Autowired
 	CustomerService customerService;
 	
-	@GetMapping(value = "/customers/{phoneNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerDetailsById(@PathVariable Long phoneNumber)
+	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CustomerDTO getCustomerDetailsById(@PathVariable int customer_id)
 	{
-		CustomerDTO customerDTO = customerService.getCustomerDetailsById(phoneNumber);
+		CustomerDTO customerDTO = customerService.getCustomerDetailsById(customer_id);
 		
-		@SuppressWarnings("unchecked")
-		List<Long> friendsAndFamily = new RestTemplate().getForObject(
-				"http://localhost:8300/customers/" + phoneNumber + "/friends", List.class);
-		
-		customerDTO.setFriendsAndFamily(friendsAndFamily);
-		
+		PlanDTO planDTO = new RestTemplate().getForObject("http://localhost:8400/plan/" + customerDTO.getCurrentPlan().getPlanId(), PlanDTO.class);
+		customerDTO.setCurrentPlan(planDTO);
 		return customerDTO;
 	}
 	/*
-	 * http://localhost:8200/customers/303030
+	 * http://localhost:8200/customers/1
 	 */
 }

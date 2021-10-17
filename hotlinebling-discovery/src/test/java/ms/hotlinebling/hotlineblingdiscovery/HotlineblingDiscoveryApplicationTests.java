@@ -1,10 +1,10 @@
-package ms.hotlinebling.friendfamily;
+package ms.hotlinebling.hotlineblingdiscovery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HotlineblingFriendfamilyApplicationTests {
+class HotlineblingDiscoveryApplicationTests {
 
 	@Test
 	void contextLoads() {

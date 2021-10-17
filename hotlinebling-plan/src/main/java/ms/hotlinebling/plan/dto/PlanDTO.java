@@ -32,6 +32,7 @@ public class PlanDTO
 		PlanDTO planDTO = new PlanDTO();
 		planDTO.setPlanId(plan.getPlanId());
 		planDTO.setPlanName(plan.getPlanName());
+		planDTO.setLocalRate(plan.getLocalRate());
 		
 		return planDTO;
 	}

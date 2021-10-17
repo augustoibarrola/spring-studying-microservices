@@ -3,7 +3,8 @@ CREATE DATABASE hotlinebling_customer;
 USE hotlinebling_customer;
 
 CREATE TABLE Customer(
-	phone_number BIGINT PRIMARY KEY,
+	customer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	phone_number BIGINT,
 	customer_name VARCHAR(50),
 	age INTEGER,
 	address VARCHAR(50),

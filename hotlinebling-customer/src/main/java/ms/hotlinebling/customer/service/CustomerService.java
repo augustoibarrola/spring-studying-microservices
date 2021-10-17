@@ -20,13 +20,11 @@ public class CustomerService
 	@Autowired
 	CustomerRepository customerRepo;
 	
-	public CustomerDTO getCustomerDetailsById(Long customer_id)
-	{
-		CustomerDTO customerDTO = null;
+	public CustomerDTO getCustomerDetailsById(int customer_id)
+	{		
+		Customer customer = customerRepo.getById(customer_id);
 		
-		Optional<Customer> customerOptl = customerRepo.findById(customer_id);
-		
-		if(customerOptl.isPresent()) customerDTO = CustomerDTO.valueOf(customerOptl.get());
+		CustomerDTO customerDTO = CustomerDTO.valueOf(customer);
 		
 		return customerDTO;
 	}
