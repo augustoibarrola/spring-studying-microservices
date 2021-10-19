@@ -12,6 +12,7 @@ public class CustomerDTO
 	String address;
 	PlanDTO currentPlan;
 	String password;
+	PhoneDTO currentPhone;
 	
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -49,6 +50,12 @@ public class CustomerDTO
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public PhoneDTO getCurrentPhone() {
+		return currentPhone;
+	}
+	public void setCurrentPhone(PhoneDTO currentPhone) {
+		this.currentPhone = currentPhone;
+	}
 	public static CustomerDTO valueOf(Customer customer)
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
@@ -58,6 +65,10 @@ public class CustomerDTO
 		customerDTO.setAge(customer.getAge());
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setPassword(customer.getPassword());
+		
+		PhoneDTO phoneDTO = new PhoneDTO();
+		phoneDTO.setPhoneId(customer.getPhoneId());
+		customerDTO.setCurrentPhone(phoneDTO);
 		
 		PlanDTO planDTO = new PlanDTO();
 		planDTO.setPlanId(customer.getPlanId());

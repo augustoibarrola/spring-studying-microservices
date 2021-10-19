@@ -1,4 +1,4 @@
-package ms.hotlinebling.customer;
+package ms.hotlinebling.phone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,16 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class HotlineblingCustomerApplication {
+public class HotlineblingPhoneApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HotlineblingCustomerApplication.class, args);
+		SpringApplication.run(HotlineblingPhoneApplication.class, args);
 	}
 
 }
-
-/* @EnableDiscoveryClient
- * 		- marks an application as both a Eureka instance
- * 		  and a Eureka client.  
- * 
- */

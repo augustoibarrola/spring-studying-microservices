@@ -13,6 +13,7 @@ public class Customer {
 	@GeneratedValue
 	@Column(name = "customer_id", nullable = false)
 	int id;
+	@Column(nullable = false)
 	long phoneNumber;
 	@Column(name = "customer_name", nullable = false)
 	String name;
@@ -24,6 +25,8 @@ public class Customer {
 	int planId;
 	@Column(nullable = false)
 	String password;
+	@Column(nullable = false)
+	int phoneId;
 
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -71,6 +74,22 @@ public class Customer {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getPhoneId() {
+		return phoneId;
+	}
+
+	public void setPhoneId(int phoneId) {
+		this.phoneId = phoneId;
 	}
 
 }

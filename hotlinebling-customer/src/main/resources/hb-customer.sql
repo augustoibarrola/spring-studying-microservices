@@ -8,15 +8,16 @@ CREATE TABLE Customer(
 	customer_name VARCHAR(50),
 	age INTEGER,
 	address VARCHAR(50),
-	plan_id INTEGER, 
+	plan_id INTEGER,
+	phone_id INTEGER,
 	password VARCHAR(50)
 );
 
 INSERT INTO Customer
-	(phone_number, customer_name, age, plan_id, password)
+	(phone_number, customer_name, age, plan_id, password, phone_id)
 VALUES
-(606060, 'Augusto', 25, 1, '123'), 
-(101010, 'Anastasia', 6, 2, '123'), 
-(303030, 'Ricardo', 26, 3, '123'), 
-(202020, 'Princess', 16, 2, '123'), 
-(404040, 'Hunter', 8, 1, '123'); 
+(606060, 'Augusto', 25, 1, '123', 1), 
+(101010, 'Anastasia', 6, 2, '123', 2), 
+(303030, 'Ricardo', 26, 3, '123', 1), 
+(202020, 'Princess', 16, 2, '123', 4), 
+(404040, 'Hunter', 8, 1, '123', 1); 
