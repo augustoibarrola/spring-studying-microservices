@@ -39,9 +39,7 @@ public class PlanController
 		PlanDTO planDTO = planService.getById(plan_id);
 		return planDTO;
 	}
-	/*
-	 * http://localhost:8400/plan/1
-	 */
+	/***	http://localhost:8400/plan/1	 ***/
 	
 	/***	http://localhost:8400/plans	 ***/
 	@PostMapping(value = "/plans/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
