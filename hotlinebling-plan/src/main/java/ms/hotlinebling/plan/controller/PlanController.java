@@ -24,22 +24,20 @@ public class PlanController
 	@Autowired
 	PlanService planService;
 	
+	/***	http://localhost:8400/plans 	***/
 	@GetMapping(value = "/plans", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PlanDTO> getAllPlans()
 	{
 		return planService.getAllPlans();
 	}
-	/*
-	 * http://localhost:8400/plans
-	 */
 	
+	/***	http://localhost:8400/plan/1	 ***/
 	@RequestMapping(value = "/plan/{plan_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PlanDTO getPlanById(@PathVariable int plan_id)
 	{
 		PlanDTO planDTO = planService.getById(plan_id);
 		return planDTO;
 	}
-	/***	http://localhost:8400/plan/1	 ***/
 	
 	/***	http://localhost:8400/plans	 ***/
 	@PostMapping(value = "/plans/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
