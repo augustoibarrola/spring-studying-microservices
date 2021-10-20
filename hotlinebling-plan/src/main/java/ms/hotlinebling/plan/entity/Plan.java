@@ -2,6 +2,8 @@ package ms.hotlinebling.plan.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,10 +15,11 @@ public class Plan
 {
 	@Id
 	@Column(name = "plan_id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	Integer planId;
-	@Column(name = "plan_name", nullable = false)
+	@Column(name = "plan_name")
 	String planName;
-	@Column(name = "local_rate", nullable = false)
+	@Column(name = "local_rate")
 	Integer localRate;
 	
 	public Integer getPlanId() {
@@ -36,6 +39,16 @@ public class Plan
 	}
 	public void setLocalRate(Integer localRate) {
 		this.localRate = localRate;
+	}
+	public static Plan valueOf(PlanDTO newPlan) {
+		
+		Plan plan = new Plan();
+		
+		plan.setPlanName(newPlan.getPlanName());
+		plan.setLocalRate(newPlan.getLocalRate());
+		
+	
+		return plan;
 	}
 
 }

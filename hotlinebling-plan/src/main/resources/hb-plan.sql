@@ -3,7 +3,7 @@ CREATE DATABASE hotlinebling_plan;
 USE hotlinebling_plan;
 
 CREATE TABLE Plan(
-	plan_id INTEGER PRIMARY KEY, 
+	plan_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
 	plan_name VARCHAR(50),
 	local_rate INTEGER
 );

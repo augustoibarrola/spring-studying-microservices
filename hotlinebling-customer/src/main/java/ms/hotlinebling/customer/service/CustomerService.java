@@ -29,4 +29,17 @@ public class CustomerService
 		return customerDTO;
 	}
 
+	public CustomerDTO postNewCustomer(CustomerDTO postCustomer) 
+	{
+		
+		Customer customer = Customer.valueOf(postCustomer);
+		
+		customerRepo.save(customer);
+		
+		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
+		
+		
+		return postedCustomer;
+	}
+
 }

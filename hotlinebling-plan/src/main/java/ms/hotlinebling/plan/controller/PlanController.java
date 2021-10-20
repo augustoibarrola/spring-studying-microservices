@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,4 +42,13 @@ public class PlanController
 	/*
 	 * http://localhost:8400/plan/1
 	 */
+	
+	/***	http://localhost:8400/plans	 ***/
+	@PostMapping(value = "/plans/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public PlanDTO postNewPlan(@RequestBody PlanDTO newPlan)
+	{
+		PlanDTO postedPlan = planService.postNewPlan(newPlan);
+		
+		return postedPlan;
+	}
 }

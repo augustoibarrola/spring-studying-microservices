@@ -66,15 +66,21 @@ public class CustomerDTO
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setPassword(customer.getPassword());
 		
-		PhoneDTO phoneDTO = new PhoneDTO();
-		phoneDTO.setPhoneId(customer.getPhoneId());
-		customerDTO.setCurrentPhone(phoneDTO);
+		if(customer.getPhoneId() != 0) 
+		{			
+			PhoneDTO phoneDTO = new PhoneDTO();
+			phoneDTO.setPhoneId(customer.getPhoneId());
+			customerDTO.setCurrentPhone(phoneDTO);
+		}
 		
-		PlanDTO planDTO = new PlanDTO();
-		planDTO.setPlanId(customer.getPlanId());
-		customerDTO.setCurrentPlan(planDTO);
+		if(customer.getPlanId() != 0)
+		{
+			
+			PlanDTO planDTO = new PlanDTO();
+			planDTO.setPlanId(customer.getPlanId());
+			customerDTO.setCurrentPlan(planDTO);
+		}
 
-		
 		return customerDTO;
 	}
 	

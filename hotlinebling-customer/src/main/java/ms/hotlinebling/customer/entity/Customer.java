@@ -3,30 +3,35 @@ package ms.hotlinebling.customer.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import ms.hotlinebling.customer.dto.CustomerDTO;
+import ms.hotlinebling.customer.dto.PhoneDTO;
+import ms.hotlinebling.customer.dto.PlanDTO;
 
 @Entity
 @Table(name = "Customer")
 public class Customer {
 	@Id
-	@GeneratedValue
-	@Column(name = "customer_id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@Column(name = "customer_id")
 	int id;
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	long phoneNumber;
-	@Column(name = "customer_name", nullable = false)
+	@Column(name = "customer_name")
 	String name;
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	int age;
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	String address;
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	int planId;
-	@Column(nullable = false)
-	String password;
-	@Column(nullable = false)
 	int phoneId;
+//	@Column(nullable = false)
+	String password;
+//	@Column(nullable = false)
 
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -90,6 +95,19 @@ public class Customer {
 
 	public void setPhoneId(int phoneId) {
 		this.phoneId = phoneId;
+	}
+
+	public static Customer valueOf(CustomerDTO postCustomer) 
+	{
+		Customer customer = new Customer();
+		
+		customer.setPhoneNumber(postCustomer.getPhoneNumber());
+		customer.setName(postCustomer.getName());
+		customer.setAge(postCustomer.getAge());
+		customer.setAddress(postCustomer.getAddress());
+		customer.setPassword(postCustomer.getPassword());
+		
+		return customer;
 	}
 
 }

@@ -41,4 +41,13 @@ public class PlanService {
 		return null;
 	}
 
+	public PlanDTO postNewPlan(PlanDTO newPlan) 
+	{
+	
+		Plan plan = planRepo.save(Plan.valueOf(newPlan));
+		
+		
+		return PlanDTO.valueOf(plan);
+	}
+
 }

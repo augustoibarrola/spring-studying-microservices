@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,6 +35,7 @@ public class CustomerController
 	@Autowired
 	DiscoveryClient discoveryClient;
 	
+	/***	http://localhost:8200/customers/1	***/
 	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CustomerDTO getCustomerDetailsById(@PathVariable int customer_id)
 	{
@@ -54,7 +57,36 @@ public class CustomerController
 		
 		return customerDTO;
 	}
-	/*
-	 * http://localhost:8200/customers/1
-	 */
+	
+	/***	http://localhost:8200/customers	***/
+	@PostMapping(value = "/customers",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer)
+	{
+		
+		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
+//		
+//		if( postCustomer.getCurrentPhone() != null || !postCustomer.getCurrentPhone().equals(null) )
+//		{
+//			List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
+//			ServiceInstance phoneInstance = phoneInstances.get(0);
+//			URI phoneURI = phoneInstance.getUri();
+//			
+//			PhoneDTO phoneDTO = new RestTemplate().postForObject(phoneURI, postCustomer.getCurrentPhone(), PhoneDTO.class);
+//			postedCustomer.setCurrentPhone(phoneDTO);
+//		}
+
+//		if( postCustomer.getCurrentPlan() != null || !postCustomer.getCurrentPlan().equals(null) )
+//		{		
+			List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
+			ServiceInstance planInstance = planInstances.get(0);
+			URI planURI = planInstance.getUri();
+			
+			PlanDTO planDTO = new RestTemplate().postForObject(planURI + "/plans/", postCustomer.getCurrentPlan(), PlanDTO.class);
+			postedCustomer.setCurrentPlan(planDTO);
+//	
+//		}
+		
+		return postedCustomer;
+	}
+	
 }
