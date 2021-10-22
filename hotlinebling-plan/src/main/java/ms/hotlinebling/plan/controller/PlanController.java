@@ -3,6 +3,7 @@ package ms.hotlinebling.plan.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import ms.hotlinebling.plan.service.PlanService;
 
 @RestController
 @CrossOrigin
+@RefreshScope
 public class PlanController 
 {
 	@Autowired
