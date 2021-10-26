@@ -18,20 +18,14 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@Column(name = "customer_id")
 	int id;
-//	@Column(nullable = false)
 	long phoneNumber;
 	@Column(name = "customer_name")
 	String name;
-//	@Column(nullable = false)
 	int age;
-//	@Column(nullable = false)
 	String address;
-//	@Column(nullable = false)
 	int planId;
 	int phoneId;
-//	@Column(nullable = false)
 	String password;
-//	@Column(nullable = false)
 
 	public long getPhoneNumber() {
 		return phoneNumber;
