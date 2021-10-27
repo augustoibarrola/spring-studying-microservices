@@ -35,6 +35,16 @@ public class CalandarController
 	}
 	
 	/*** http://localhost:8700/events ***/
+	/*
+		{
+		    "customerId": 0,
+		    "description": "",
+		    "year": "",
+		    "date": "YYYY-MM-DD", 
+		    "time": "HH:MM:SS", 
+		    "datetime": "YYYY-MM-DDTHH:MM:SS"
+		}
+	 */
 	@PostMapping(value = "/events", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public CalandarDTO postNewEvent(@RequestBody CalandarDTO postEvent)
 	{

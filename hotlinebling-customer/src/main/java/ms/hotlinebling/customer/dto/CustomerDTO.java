@@ -1,5 +1,6 @@
 package ms.hotlinebling.customer.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ms.hotlinebling.customer.entity.Customer;
@@ -82,6 +83,18 @@ public class CustomerDTO
 		}
 
 		return customerDTO;
+	}
+	
+	public static List<CustomerDTO> valueOf(List<Customer> customers) {
+		
+		List<CustomerDTO> customerDTOs = new ArrayList<>();
+		
+		for(Customer customer : customers)
+		{
+			customerDTOs.add(CustomerDTO.valueOf(customer));
+		}
+		
+		return customerDTOs;
 	}
 	
 }

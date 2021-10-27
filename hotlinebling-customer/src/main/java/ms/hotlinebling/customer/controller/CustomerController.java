@@ -1,6 +1,7 @@
 package ms.hotlinebling.customer.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -36,6 +37,16 @@ public class CustomerController
 	
 	@Autowired
 	DiscoveryClient discoveryClient;
+	
+	/***	http://localhost:8200/customers	***/
+	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CustomerDTO> getCustomers()
+	{
+		List<CustomerDTO> customers = customerService.getCustomers();
+		
+		return customers;
+	}
+	
 	
 	/***	http://localhost:8200/customers/1	***/
 	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)

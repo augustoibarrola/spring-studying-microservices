@@ -1,5 +1,6 @@
 package ms.hotlinebling.customer.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -40,6 +41,15 @@ public class CustomerService
 		
 		
 		return postedCustomer;
+	}
+
+	public List<CustomerDTO> getCustomers() {
+		
+		List<Customer> customers = customerRepo.findAll();
+		
+		List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
+		
+		return customerDTOs;
 	}
 
 }
