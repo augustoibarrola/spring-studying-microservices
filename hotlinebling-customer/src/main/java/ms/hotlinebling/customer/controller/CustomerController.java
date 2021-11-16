@@ -50,10 +50,9 @@ public class CustomerController
 	
 	/***	http://localhost:8200/customers/1	***/
 	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerDetailsById(@PathVariable int customer_id)
+	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
 	{
-		CustomerDTO customerDTO = customerService.getCustomerDetailsById(customer_id);
-		
+		CustomerDTO customerDTO = customerService.getCustomerDetailsById(Integer.parseInt(customer_id));
 		List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
 		ServiceInstance planInstance = planInstances.get(0);
 		URI planUri = planInstance.getUri();
