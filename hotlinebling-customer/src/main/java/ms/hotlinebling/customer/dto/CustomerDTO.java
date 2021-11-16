@@ -7,6 +7,7 @@ import ms.hotlinebling.customer.entity.Customer;
 
 public class CustomerDTO 
 {
+	int id;
 	long phoneNumber;
 	String name;
 	int age;
@@ -15,6 +16,12 @@ public class CustomerDTO
 	String password;
 	PhoneDTO currentPhone;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public long getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -61,6 +68,7 @@ public class CustomerDTO
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
 		
+		customerDTO.setId(customer.getId());
 		customerDTO.setPhoneNumber(customer.getPhoneNumber());
 		customerDTO.setName(customer.getName());
 		customerDTO.setAge(customer.getAge());
