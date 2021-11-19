@@ -13,8 +13,8 @@ public class CustomerDTO
 	int age;
 	String address;
 	PlanDTO currentPlan;
-	String password;
 	PhoneDTO currentPhone;
+	String password;
 	
 	public int getId() {
 		return id;
@@ -78,7 +78,7 @@ public class CustomerDTO
 		if(customer.getPhoneId() != 0) 
 		{			
 			PhoneDTO phoneDTO = new PhoneDTO();
-			phoneDTO.setPhoneId(customer.getPhoneId());
+			phoneDTO.setId(customer.getId());
 			customerDTO.setCurrentPhone(phoneDTO);
 		}
 		
@@ -86,10 +86,11 @@ public class CustomerDTO
 		{
 			
 			PlanDTO planDTO = new PlanDTO();
-			planDTO.setPlanId(customer.getPlanId());
+			planDTO.setId(customer.getId());
 			customerDTO.setCurrentPlan(planDTO);
 		}
 
+		System.out.println(customerDTO);
 		return customerDTO;
 	}
 	

@@ -57,14 +57,14 @@ public class CustomerController
 		ServiceInstance planInstance = planInstances.get(0);
 		URI planUri = planInstance.getUri();
 		
-		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plan/" + customerDTO.getCurrentPlan().getPlanId(), PlanDTO.class);
+		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
 		customerDTO.setCurrentPlan(planDTO);
 		
 		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
 		ServiceInstance phoneInstance = phoneInstances.get(0);
 		URI phoneURI = phoneInstance.getUri();
 		
-		PhoneDTO phoneDTO = new RestTemplate().getForObject(phoneURI + "/phone/" + customerDTO.getCurrentPhone().getPhoneId(), PhoneDTO.class);
+		PhoneDTO phoneDTO = new RestTemplate().getForObject(phoneURI + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
 		customerDTO.setCurrentPhone(phoneDTO);
 		
 		return customerDTO;

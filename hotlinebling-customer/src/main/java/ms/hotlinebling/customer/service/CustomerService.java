@@ -27,6 +27,7 @@ public class CustomerService
 		Customer customer = customerRepo.getById(customer_id);
 		System.out.println(customer);
 		CustomerDTO customerDTO = CustomerDTO.valueOf(customer);
+		System.out.println(customerDTO);
 		
 		return customerDTO;
 	}
