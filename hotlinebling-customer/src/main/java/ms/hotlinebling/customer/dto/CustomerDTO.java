@@ -8,69 +8,121 @@ import ms.hotlinebling.customer.entity.Customer;
 public class CustomerDTO 
 {
 	int id;
-	long phoneNumber;
-	String name;
+	String firstName;
+	String lastName;
+	String middleName;
 	int age;
+	long phoneNumber;
+	String eMail;
 	String address;
 	PlanDTO currentPlan;
 	PhoneDTO currentPhone;
 	String password;
-	
+	int ssn;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public long getPhoneNumber() {
-		return phoneNumber;
+
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPhoneNumber(long phoneNumber) {
-		this.phoneNumber = phoneNumber;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getName() {
-		return name;
+
+	public String getLastName() {
+		return lastName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String geteMail() {
+		return eMail;
+	}
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public PlanDTO getCurrentPlan() {
 		return currentPlan;
 	}
-	public void setCurrentPlan(PlanDTO plan) {
-		this.currentPlan = plan;
+
+	public void setCurrentPlan(PlanDTO currentPlan) {
+		this.currentPlan = currentPlan;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	public PhoneDTO getCurrentPhone() {
 		return currentPhone;
 	}
+
 	public void setCurrentPhone(PhoneDTO currentPhone) {
 		this.currentPhone = currentPhone;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(int ssn) {
+		this.ssn = ssn;
+	}
+
 	public static CustomerDTO valueOf(Customer customer)
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
 		
 		customerDTO.setId(customer.getId());
 		customerDTO.setPhoneNumber(customer.getPhoneNumber());
-		customerDTO.setName(customer.getName());
+		customerDTO.setFirstName(customer.getFirstName());
 		customerDTO.setAge(customer.getAge());
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setPassword(customer.getPassword());

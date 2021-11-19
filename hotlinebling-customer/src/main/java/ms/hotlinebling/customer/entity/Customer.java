@@ -18,85 +18,147 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@Column(name = "customer_id")
 	int id;
-	long phoneNumber;
-	@Column(name = "customer_name")
-	String name;
+	@Column(name = "first_name")
+	String firstName;
+	@Column(name = "last_name")
+	String lastName;
+	@Column(name = "middle_name")
+	String middleName;
 	int age;
+	long phoneNumber;
+	String eMail;
 	String address;
 	int planId;
 	int phoneId;
 	String password;
-
-	public long getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public int getPlanId() {
-		return planId;
-	}
-
-	public void setPlanId(int planId) {
-		this.planId = planId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	int ssn;
 
 	public int getId() {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+
+	public int getAge() {
+		return age;
+	}
+
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+
+	public long getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+	public void setPhoneNumber(long phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+
+	public String geteMail() {
+		return eMail;
+	}
+
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public int getPlanId() {
+		return planId;
+	}
+
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
+
 
 	public int getPhoneId() {
 		return phoneId;
 	}
 
+
 	public void setPhoneId(int phoneId) {
 		this.phoneId = phoneId;
 	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public int getSsn() {
+		return ssn;
+	}
+
+
+	public void setSsn(int ssn) {
+		this.ssn = ssn;
+	}
+
 
 	public static Customer valueOf(CustomerDTO postCustomer) 
 	{
 		Customer customer = new Customer();
 		
 		customer.setPhoneNumber(postCustomer.getPhoneNumber());
-		customer.setName(postCustomer.getName());
+		customer.setFirstName(postCustomer.getFirstName());
 		customer.setAge(postCustomer.getAge());
 		customer.setAddress(postCustomer.getAddress());
 		customer.setPassword(postCustomer.getPassword());
@@ -105,9 +167,3 @@ public class Customer {
 	}
 
 }
-
-/*
- * CREATE TABLE Customer( phone_number BIGINT PRIMARY KEY, customer_name
- * VARCHAR(50), age INTEGER, address VARCHAR(50), plan_id INTEGER, password
- * VARCHAR(50) );
- */
