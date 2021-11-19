@@ -16,7 +16,7 @@ import ms.hotlinebling.customer.dto.PlanDTO;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	@Column(name = "customer_id")
+	@Column(name = "id")
 	int id;
 	@Column(name = "first_name")
 	String firstName;
@@ -31,7 +31,8 @@ public class Customer {
 	int planId;
 	int phoneId;
 	String password;
-	int ssn;
+	@Column(name = "ssn")
+	Integer ssn;
 
 	public int getId() {
 		return id;
