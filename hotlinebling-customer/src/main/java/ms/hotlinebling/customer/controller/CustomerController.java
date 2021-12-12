@@ -75,11 +75,11 @@ public class CustomerController
 	{
 		
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
-			
+		//NOTE returned postCustomer.getCurrentPhone() should reuturn a phone obj. w/ NO id; id will be generated when saved to db 
 		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI(), postCustomer.getCurrentPhone(), PhoneDTO.class);
 		postedCustomer.setCurrentPhone(phoneDTO);
 			
-		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans/", postCustomer.getCurrentPlan(), PlanDTO.class);
+		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI(), postCustomer.getCurrentPlan(), PlanDTO.class);
 		postedCustomer.setCurrentPlan(planDTO);
 		
 		return postedCustomer;

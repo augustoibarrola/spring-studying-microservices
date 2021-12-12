@@ -42,7 +42,7 @@ public class PlanController
 	}
 	
 	/***	http://localhost:8400/plans	 ***/
-	@PostMapping(value = "/plans/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/plans", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PlanDTO postNewPlan(@RequestBody PlanDTO newPlan)
 	{
 		PlanDTO postedPlan = planService.postNewPlan(newPlan);
