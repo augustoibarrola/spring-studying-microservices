@@ -38,7 +38,6 @@ public class CustomerService
 		
 		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 		
-		
 		return postedCustomer;
 	}
 

@@ -47,7 +47,6 @@ public class CustomerController
 		return customers;
 	}
 	
-	
 	/***	http://localhost:8200/customers/1	***/
 	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
@@ -76,29 +75,35 @@ public class CustomerController
 	{
 		
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
-//		
-//		if( postCustomer.getCurrentPhone() != null || !postCustomer.getCurrentPhone().equals(null) )
-//		{
-//			List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
-//			ServiceInstance phoneInstance = phoneInstances.get(0);
-//			URI phoneURI = phoneInstance.getUri();
-//			
-//			PhoneDTO phoneDTO = new RestTemplate().postForObject(phoneURI, postCustomer.getCurrentPhone(), PhoneDTO.class);
-//			postedCustomer.setCurrentPhone(phoneDTO);
-//		}
-
-//		if( postCustomer.getCurrentPlan() != null || !postCustomer.getCurrentPlan().equals(null) )
-//		{		
-			List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
-			ServiceInstance planInstance = planInstances.get(0);
-			URI planURI = planInstance.getUri();
 			
-			PlanDTO planDTO = new RestTemplate().postForObject(planURI + "/plans/", postCustomer.getCurrentPlan(), PlanDTO.class);
-			postedCustomer.setCurrentPlan(planDTO);
-//	
-//		}
+		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI(), postCustomer.getCurrentPhone(), PhoneDTO.class);
+		postedCustomer.setCurrentPhone(phoneDTO);
+			
+		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans/", postCustomer.getCurrentPlan(), PlanDTO.class);
+		postedCustomer.setCurrentPlan(planDTO);
 		
 		return postedCustomer;
 	}
+	
+	/*
+	 * @return uri for phone microservice instance
+	 */
+	public URI getPhoneURI() 
+	{
+		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
+		ServiceInstance phoneInstance = phoneInstances.get(0);
+		return phoneInstance.getUri();
+	}
+	
+	/*
+	 * @return uri for plan microservice instance
+	 */
+	public URI getPlanURI() 
+	{
+		List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
+		ServiceInstance planInstance = planInstances.get(0);
+		return planInstance.getUri();
+	}
+	
 	
 }
