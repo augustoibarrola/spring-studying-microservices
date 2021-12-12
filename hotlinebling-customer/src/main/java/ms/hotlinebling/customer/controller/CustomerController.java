@@ -52,11 +52,12 @@ public class CustomerController
 	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
 	{
 		CustomerDTO customerDTO = customerService.getCustomerDetailsById(Integer.parseInt(customer_id));
-		List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
+		
+		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
 		ServiceInstance planInstance = planInstances.get(0);
 		URI planUri = planInstance.getUri();
 		
-		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
+		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plans" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
 		customerDTO.setCurrentPlan(planDTO);
 		
 		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
@@ -75,11 +76,17 @@ public class CustomerController
 	{
 		
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
-		//NOTE returned postCustomer.getCurrentPhone() should reuturn a phone obj. w/ NO id; id will be generated when saved to db 
-		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI(), postCustomer.getCurrentPhone(), PhoneDTO.class);
+		
+		PhoneDTO phoneDTO = new RestTemplate().postForObject(
+				getPhoneURI() + "/phones", 
+				postCustomer.getCurrentPhone(), 
+				PhoneDTO.class);
 		postedCustomer.setCurrentPhone(phoneDTO);
-			
-		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI(), postCustomer.getCurrentPlan(), PlanDTO.class);
+		
+		PlanDTO planDTO = new RestTemplate().postForObject(
+				getPlanURI() + "/plans", 
+				postCustomer.getCurrentPlan(), 
+				PlanDTO.class);
 		postedCustomer.setCurrentPlan(planDTO);
 		
 		return postedCustomer;
