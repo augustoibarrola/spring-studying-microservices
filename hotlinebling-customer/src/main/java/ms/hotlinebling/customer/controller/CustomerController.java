@@ -85,6 +85,12 @@ public class CustomerController
 		return postedCustomer;
 	}
 	
+	
+	
+	/*
+	 * Helper Methods
+	 */
+	
 	/*
 	 * @return uri for phone microservice instance
 	 */
