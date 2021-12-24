@@ -15,7 +15,7 @@ public class Plan
 {
 	@Id
 	@Column(name = "plan_id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer planId;
 	@Column(name = "plan_name")
 	String planName;

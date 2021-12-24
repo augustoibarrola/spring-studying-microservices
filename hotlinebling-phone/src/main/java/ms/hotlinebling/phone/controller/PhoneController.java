@@ -34,7 +34,7 @@ public class PhoneController
 	 * @URI http://localhost:8500/phones/{phoneId}
 	 * @return phone with id same as given phoneId
 	 */
-	@GetMapping(value="/phones/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public PhoneDTO getPhoneDetailsById(@PathVariable("phoneId") int phoneId)
 	{
 		PhoneDTO phoneDTO = phoneService.getCustomerPhone(phoneId);

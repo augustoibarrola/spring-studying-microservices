@@ -50,4 +50,14 @@ public class CustomerService
 		return customerDTOs;
 	}
 
+	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) {
+		Customer foundCustomer = customerRepo.getById(customer_id);
+		
+		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer); 
+		customerRepo.save(foundCustomer);		
+		
+		
+		return updateCustomer;
+	}
+
 }

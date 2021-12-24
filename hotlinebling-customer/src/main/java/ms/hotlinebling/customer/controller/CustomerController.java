@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -47,8 +48,8 @@ public class CustomerController
 		return customers;
 	}
 	
-	/***	http://localhost:8200/customers/1	***/
-	@GetMapping(value = "/customers/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	/***	http://localhost:8200/customer/1	***/
+	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
 	{
 		CustomerDTO customerDTO = customerService.getCustomerDetailsById(Integer.parseInt(customer_id));
@@ -57,10 +58,10 @@ public class CustomerController
 		ServiceInstance planInstance = planInstances.get(0);
 		URI planUri = planInstance.getUri();
 		
-		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plans" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
+		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
 		customerDTO.setCurrentPlan(planDTO);
 		
-		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
+		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
 		ServiceInstance phoneInstance = phoneInstances.get(0);
 		URI phoneURI = phoneInstance.getUri();
 		
@@ -92,6 +93,14 @@ public class CustomerController
 		return postedCustomer;
 	}
 	
+	/***	http://localhost:8200/customer/1	***/
+	@PutMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public CustomerDTO updateCustomerDetailsById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) 
+	{
+		CustomerDTO updatedCustomer = customerService.updateCustomerById(Integer.parseInt(customer_id), updateCustomer);
+		
+		return updatedCustomer;
+	}
 	
 	
 	/*
@@ -103,7 +112,7 @@ public class CustomerController
 	 */
 	public URI getPhoneURI() 
 	{
-		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PHONEMS");
+		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
 		ServiceInstance phoneInstance = phoneInstances.get(0);
 		return phoneInstance.getUri();
 	}
@@ -113,7 +122,7 @@ public class CustomerController
 	 */
 	public URI getPlanURI() 
 	{
-		List<ServiceInstance> planInstances = discoveryClient.getInstances("PLANMS");
+		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
 		ServiceInstance planInstance = planInstances.get(0);
 		return planInstance.getUri();
 	}
