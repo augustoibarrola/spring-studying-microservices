@@ -28,8 +28,10 @@ public class Customer {
 	long phoneNumber;
 	String eMail;
 	String address;
-	int planId;
-	int phoneId;
+	@Column(name = "plan_id")
+	int currentPlan;
+	@Column(name = "phone_id")
+	int currentPhone;
 	String password;
 	@Column(name = "ssn")
 	Integer ssn;
@@ -115,22 +117,22 @@ public class Customer {
 
 
 	public int getPlanId() {
-		return planId;
+		return currentPlan;
 	}
 
 
 	public void setPlanId(int planId) {
-		this.planId = planId;
+		this.currentPlan = planId;
 	}
 
 
 	public int getPhoneId() {
-		return phoneId;
+		return currentPhone;
 	}
 
 
 	public void setPhoneId(int phoneId) {
-		this.phoneId = phoneId;
+		this.currentPhone = phoneId;
 	}
 
 
@@ -165,6 +167,27 @@ public class Customer {
 		customer.setPassword(postCustomer.getPassword());
 		
 		return customer;
+	}
+
+
+	public static Customer updateEntity(Customer foundCustomer, CustomerDTO updateCustomer) {
+		
+		foundCustomer.firstName = updateCustomer.getFirstName();
+		foundCustomer.middleName = updateCustomer.getMiddleName();
+		foundCustomer.lastName = updateCustomer.getLastName();
+		
+		foundCustomer.age = updateCustomer.getAge();
+		foundCustomer.phoneNumber = updateCustomer.getPhoneNumber();
+		foundCustomer.eMail = updateCustomer.geteMail();
+		foundCustomer.address = updateCustomer.getAddress();
+		foundCustomer.password = updateCustomer.getPassword();
+		foundCustomer.ssn = updateCustomer.getSsn();
+
+//		foundCustomer.currentPlan = updateCustomer.getCurrentPlan().getId();
+//		foundCustomer.currentPhone = updateCustomer.getCurrentPhone().getId();
+		
+		
+		return foundCustomer;
 	}
 
 }
