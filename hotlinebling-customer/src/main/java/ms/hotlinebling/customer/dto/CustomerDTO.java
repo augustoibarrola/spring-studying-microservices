@@ -142,7 +142,7 @@ public class CustomerDTO
 			customerDTO.setCurrentPlan(planDTO);
 		}
 
-		System.out.println(customerDTO);
+
 		return customerDTO;
 	}
 	
