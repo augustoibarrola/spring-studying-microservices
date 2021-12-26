@@ -51,13 +51,19 @@ public class CustomerService
 	}
 
 	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) {
+		System.out.print("\n\n SERVICE HIT \n\n");
 		Customer foundCustomer = customerRepo.getById(customer_id);
+		System.out.println(foundCustomer.toString());
 		
-		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer); 
-		customerRepo.save(foundCustomer);		
+		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer);
 		
+		Customer updatedCustomer = customerRepo.save(foundCustomer); 
 		
-		return updateCustomer;
+		CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
+				
+		System.out.print("\n\n UPDATED CUSTOMER \n\n");
+		
+		return updatedCustomerDTO;
 	}
 
 }

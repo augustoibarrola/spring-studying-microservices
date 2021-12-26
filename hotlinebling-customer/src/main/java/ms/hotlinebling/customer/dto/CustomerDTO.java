@@ -120,12 +120,17 @@ public class CustomerDTO
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
 		
-		customerDTO.setId(customer.getId());
-		customerDTO.setPhoneNumber(customer.getPhoneNumber());
 		customerDTO.setFirstName(customer.getFirstName());
+		customerDTO.setMiddleName(customer.getMiddleName());
+		customerDTO.setLastName(customer.getLastName());
+		
 		customerDTO.setAge(customer.getAge());
+		customerDTO.setPhoneNumber(customer.getPhoneNumber());
+		
+		customerDTO.seteMail(customer.geteMail());
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setPassword(customer.getPassword());
+		customerDTO.setSsn(customer.getSsn());
 		
 		if(customer.getPhoneId() != 0) 
 		{			
@@ -141,7 +146,6 @@ public class CustomerDTO
 			planDTO.setId(customer.getId());
 			customerDTO.setCurrentPlan(planDTO);
 		}
-
 
 		return customerDTO;
 	}

@@ -45,9 +45,10 @@ public class PlanService {
 	{
 	
 		Plan plan = planRepo.save(Plan.valueOf(newPlan));
+		newPlan.setPlanId(plan.getPlanId());
 		
 		
-		return PlanDTO.valueOf(plan);
+		return newPlan;
 	}
 
 }

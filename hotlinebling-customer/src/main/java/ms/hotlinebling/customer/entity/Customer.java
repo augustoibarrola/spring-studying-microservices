@@ -160,32 +160,38 @@ public class Customer {
 	{
 		Customer customer = new Customer();
 		
-		customer.setPhoneNumber(postCustomer.getPhoneNumber());
 		customer.setFirstName(postCustomer.getFirstName());
+		customer.setMiddleName(postCustomer.getMiddleName());
+		customer.setLastName(postCustomer.getLastName());
+		
 		customer.setAge(postCustomer.getAge());
+		customer.setPhoneNumber(postCustomer.getPhoneNumber());
+		
+		customer.seteMail(postCustomer.geteMail());
 		customer.setAddress(postCustomer.getAddress());
+		
 		customer.setPassword(postCustomer.getPassword());
+		customer.setSsn(postCustomer.getSsn());
 		
 		return customer;
 	}
 
 
 	public static Customer updateEntity(Customer foundCustomer, CustomerDTO updateCustomer) {
-		
-		foundCustomer.firstName = updateCustomer.getFirstName();
-		foundCustomer.middleName = updateCustomer.getMiddleName();
-		foundCustomer.lastName = updateCustomer.getLastName();
-		
-		foundCustomer.age = updateCustomer.getAge();
-		foundCustomer.phoneNumber = updateCustomer.getPhoneNumber();
-		foundCustomer.eMail = updateCustomer.geteMail();
-		foundCustomer.address = updateCustomer.getAddress();
-		foundCustomer.password = updateCustomer.getPassword();
-		foundCustomer.ssn = updateCustomer.getSsn();
+			
+	
+		foundCustomer.setFirstName(updateCustomer.getFirstName());
+		foundCustomer.setMiddleName(updateCustomer.getMiddleName());
+		foundCustomer.setLastName(updateCustomer.getLastName());
+		foundCustomer.setAge(updateCustomer.getAge());
+		foundCustomer.setPhoneNumber(updateCustomer.getPhoneNumber());
+		foundCustomer.seteMail(updateCustomer.geteMail());
+		foundCustomer.setAddress(updateCustomer.getAddress());
+		foundCustomer.setPassword(updateCustomer.getPassword());
+		foundCustomer.setSsn(updateCustomer.getSsn());
 
 //		foundCustomer.currentPlan = updateCustomer.getCurrentPlan().getId();
 //		foundCustomer.currentPhone = updateCustomer.getCurrentPhone().getId();
-		
 		
 		return foundCustomer;
 	}

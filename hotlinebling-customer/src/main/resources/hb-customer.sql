@@ -18,10 +18,6 @@ CREATE TABLE Customer(
 );
 
 INSERT INTO Customer
-	(first_name, age, phone_number, e_mail, plan_id, phone_id, password)
+	(first_name, last_name, middle_name, age, phone_number, e_mail, address, plan_id, phone_id, password, ssn)
 VALUES
-('Augusto', 25, 2011234567, 'augusto@email.com', 1, 1,'123'), 
-('Anastasia', 6, 2011234568,'anastasia@email.com', 2, 2, '123'), 
-('Ricardo', 27, 2011234569,'ricardo@email.com', 3, 1, '123'), 
-('Princess', 16, 2011234570,'princess@email.com', 2, 4,'123'), 
-('Hunter', 8, 2011234571,'hunter@email.com',1, 1, '123');
+('Augusto','Tomas','Ibarrola', 25, 2011234567, 'augusto@email.com', 'address',1, 1,'123', 0);
