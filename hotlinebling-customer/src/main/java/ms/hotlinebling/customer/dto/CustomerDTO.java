@@ -7,24 +7,24 @@ import ms.hotlinebling.customer.entity.Customer;
 
 public class CustomerDTO 
 {
-	int id;
+	Integer id;
 	String firstName;
 	String lastName;
 	String middleName;
-	int age;
-	long phoneNumber;
+	Integer age;
+	Long phoneNumber;
 	String eMail;
 	String address;
 	PlanDTO currentPlan;
 	PhoneDTO currentPhone;
 	String password;
-	int ssn;
+	Integer ssn;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -52,19 +52,19 @@ public class CustomerDTO
 		this.middleName = middleName;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
-	public long getPhoneNumber() {
+	public Long getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -108,11 +108,11 @@ public class CustomerDTO
 		this.password = password;
 	}
 
-	public int getSsn() {
+	public Integer getSsn() {
 		return ssn;
 	}
 
-	public void setSsn(int ssn) {
+	public void setSsn(Integer ssn) {
 		this.ssn = ssn;
 	}
 
@@ -131,21 +131,21 @@ public class CustomerDTO
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setPassword(customer.getPassword());
 		customerDTO.setSsn(customer.getSsn());
-		
-		if(customer.getPhoneId() != 0) 
-		{			
-			PhoneDTO phoneDTO = new PhoneDTO();
-			phoneDTO.setId(customer.getId());
-			customerDTO.setCurrentPhone(phoneDTO);
-		}
-		
-		if(customer.getPlanId() != 0)
-		{
-			
-			PlanDTO planDTO = new PlanDTO();
-			planDTO.setId(customer.getId());
-			customerDTO.setCurrentPlan(planDTO);
-		}
+//		
+//		if(customer.getPhoneId() != 0) 
+//		{			
+//			PhoneDTO phoneDTO = new PhoneDTO();
+//			phoneDTO.setId(customer.getId());
+//			customerDTO.setCurrentPhone(phoneDTO);
+//		}
+//		
+//		if(customer.getPlanId() != 0)
+//		{
+//			
+//			PlanDTO planDTO = new PlanDTO();
+//			planDTO.setId(customer.getId());
+//			customerDTO.setCurrentPlan(planDTO);
+//		}
 
 		return customerDTO;
 	}

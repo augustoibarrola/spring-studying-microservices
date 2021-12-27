@@ -80,17 +80,17 @@ public class CustomerController
 		
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
 		
-		PhoneDTO phoneDTO = new RestTemplate().postForObject(
-				getPhoneURI() + "/phones", 
-				postCustomer.getCurrentPhone(), 
-				PhoneDTO.class);
-		postedCustomer.setCurrentPhone(phoneDTO);
-		
-		PlanDTO planDTO = new RestTemplate().postForObject(
-				getPlanURI() + "/plans", 
-				postCustomer.getCurrentPlan(), 
-				PlanDTO.class);
-		postedCustomer.setCurrentPlan(planDTO);
+//		PhoneDTO phoneDTO = new RestTemplate().postForObject(
+//				getPhoneURI() + "/phones", 
+//				postCustomer.getCurrentPhone(), 
+//				PhoneDTO.class);
+//		postedCustomer.setCurrentPhone(phoneDTO);
+//		
+//		PlanDTO planDTO = new RestTemplate().postForObject(
+//				getPlanURI() + "/plans", 
+//				postCustomer.getCurrentPlan(), 
+//				PlanDTO.class);
+//		postedCustomer.setCurrentPlan(planDTO);
 		
 		return postedCustomer;
 	}
@@ -99,20 +99,10 @@ public class CustomerController
 	@PutMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public CustomerDTO updateCustomerDetailsById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) 
 	{
-		System.out.print("\n\n CONTROLLER HIT \n\n");
-		System.out.println(updateCustomer.toString());
-		System.out.println(updateCustomer.getFirstName() + "\n\n");
-		System.out.println(updateCustomer.getMiddleName() + "\n\n");
-		System.out.println(updateCustomer.getLastName() + "\n\n");
 		
-		CustomerDTO updatedCustomer = customerService.updateCustomerById(Integer.parseInt(customer_id), updateCustomer);
+		int id = Integer.parseInt(customer_id);
+		CustomerDTO updatedCustomer = customerService.updateCustomerById(id, updateCustomer);
 		
-		System.out.print("\n\n UPDATED CUSTOMER RETURNED \n\n");
-		System.out.println(updatedCustomer.toString());
-		System.out.println(updatedCustomer.getFirstName() + "\n\n");
-		System.out.println(updatedCustomer.getMiddleName() + "\n\n");
-		System.out.println(updatedCustomer.getLastName() + "\n\n");
-		System.out.println(updatedCustomer.toString());
 		return updatedCustomer;
 	}
 	

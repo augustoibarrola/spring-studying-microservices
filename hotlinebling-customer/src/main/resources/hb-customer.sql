@@ -3,7 +3,7 @@ CREATE DATABASE hotlinebling_customer;
 USE hotlinebling_customer;
 
 CREATE TABLE Customer(
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	middle_name VARCHAR(50),
@@ -18,6 +18,6 @@ CREATE TABLE Customer(
 );
 
 INSERT INTO Customer
-	(first_name, last_name, middle_name, age, phone_number, e_mail, address, plan_id, phone_id, password, ssn)
+	(id, first_name, last_name, middle_name, age, phone_number, e_mail, address, plan_id, phone_id, password, ssn)
 VALUES
-('Augusto','Tomas','Ibarrola', 25, 2011234567, 'augusto@email.com', 'address',1, 1,'123', 0);
+(1, 'Augusto','Tomas','Ibarrola', 25, 2011234567, 'augusto@email.com', 'address',1, 1,'123', 111);

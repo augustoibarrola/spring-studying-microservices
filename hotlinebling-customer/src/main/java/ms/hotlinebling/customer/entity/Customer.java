@@ -17,31 +17,31 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@Column(name = "id")
-	int id;
+	Integer id;
 	@Column(name = "first_name")
 	String firstName;
 	@Column(name = "last_name")
 	String lastName;
 	@Column(name = "middle_name")
 	String middleName;
-	int age;
+	Integer age;
 	long phoneNumber;
 	String eMail;
 	String address;
 	@Column(name = "plan_id")
-	int currentPlan;
+	Integer currentPlan;
 	@Column(name = "phone_id")
-	int currentPhone;
+	Integer currentPhone;
 	String password;
 	@Column(name = "ssn")
 	Integer ssn;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -76,12 +76,12 @@ public class Customer {
 	}
 
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 
@@ -116,22 +116,22 @@ public class Customer {
 	}
 
 
-	public int getPlanId() {
+	public Integer getPlanId() {
 		return currentPlan;
 	}
 
 
-	public void setPlanId(int planId) {
+	public void setPlanId(Integer planId) {
 		this.currentPlan = planId;
 	}
 
 
-	public int getPhoneId() {
+	public Integer getPhoneId() {
 		return currentPhone;
 	}
 
 
-	public void setPhoneId(int phoneId) {
+	public void setPhoneId(Integer phoneId) {
 		this.currentPhone = phoneId;
 	}
 
@@ -146,12 +146,12 @@ public class Customer {
 	}
 
 
-	public int getSsn() {
+	public Integer getSsn() {
 		return ssn;
 	}
 
 
-	public void setSsn(int ssn) {
+	public void setSsn(Integer ssn) {
 		this.ssn = ssn;
 	}
 
