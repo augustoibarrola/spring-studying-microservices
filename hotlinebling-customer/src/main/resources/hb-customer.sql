@@ -3,18 +3,19 @@ CREATE DATABASE hotlinebling_customer;
 USE hotlinebling_customer;
 
 CREATE TABLE Customer(
-	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	middle_name VARCHAR(50),
-	age INTEGER,
+	age INT,
 	phone_number BIGINT,
 	e_mail VARCHAR(50),
 	address VARCHAR(50),
 	plan_id INTEGER,
-	phone_id INTEGER,v
+	phone_id INTEGER,
 	password VARCHAR(50), 
-	ssn INTEGER
+	ssn INT,
+	CONSTRAINT Customer_id_pk PRIMARY KEY (id)
 );
 
 INSERT INTO Customer

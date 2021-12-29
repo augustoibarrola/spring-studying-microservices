@@ -29,7 +29,6 @@ import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
 @CrossOrigin
-//@RefreshScope
 public class CustomerController 
 {
 	
