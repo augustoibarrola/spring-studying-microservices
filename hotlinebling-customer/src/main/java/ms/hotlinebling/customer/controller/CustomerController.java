@@ -29,7 +29,7 @@ import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
 @CrossOrigin
-@RefreshScope
+//@RefreshScope
 public class CustomerController 
 {
 	
@@ -45,6 +45,7 @@ public class CustomerController
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CustomerDTO> getCustomers()
 	{
+		
 		List<CustomerDTO> customers = customerService.getCustomers();
 		
 		return customers;
