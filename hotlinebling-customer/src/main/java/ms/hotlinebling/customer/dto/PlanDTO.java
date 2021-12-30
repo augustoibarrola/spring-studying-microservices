@@ -2,21 +2,21 @@ package ms.hotlinebling.customer.dto;
 
 public class PlanDTO 
 {
-	Integer planId;
-	String planName;
+	Integer id;
+	String name;
 	Integer localRate;
 	
-	public Integer getPlanId() {
-		return planId;
+	public Integer getId() {
+		return id;
 	}
-	public void setPlanId(Integer planId) {
-		this.planId = planId;
+	public void setId(Integer planId) {
+		this.id = planId;
 	}
-	public String getPlanName() {
-		return planName;
+	public String getName() {
+		return name;
 	}
-	public void setPlanName(String planName) {
-		this.planName = planName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Integer getLocalRate() {
 		return localRate;

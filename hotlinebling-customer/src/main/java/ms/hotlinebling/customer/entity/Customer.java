@@ -16,104 +16,184 @@ import ms.hotlinebling.customer.dto.PlanDTO;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	@Column(name = "customer_id")
-	int id;
-//	@Column(nullable = false)
+	@Column(name = "id")
+	Integer id;
+	@Column(name = "first_name")
+	String firstName;
+	@Column(name = "last_name")
+	String lastName;
+	@Column(name = "middle_name")
+	String middleName;
+	Integer age;
 	long phoneNumber;
-	@Column(name = "customer_name")
-	String name;
-//	@Column(nullable = false)
-	int age;
-//	@Column(nullable = false)
+	String eMail;
 	String address;
-//	@Column(nullable = false)
-	int planId;
-	int phoneId;
-//	@Column(nullable = false)
+	@Column(name = "plan_id")
+	Integer currentPlan;
+	@Column(name = "phone_id")
+	Integer currentPhone;
 	String password;
-//	@Column(nullable = false)
+	@Column(name = "ssn")
+	Integer ssn;
+
+	public Integer getId() {
+		return id;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+
+	public Integer getAge() {
+		return age;
+	}
+
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
 
 	public long getPhoneNumber() {
 		return phoneNumber;
 	}
 
+
 	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getName() {
-		return name;
+
+	public String geteMail() {
+		return eMail;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+	public void seteMail(String eMail) {
+		this.eMail = eMail;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public int getPlanId() {
-		return planId;
+
+	public Integer getPlanId() {
+		return currentPlan;
 	}
 
-	public void setPlanId(int planId) {
-		this.planId = planId;
+
+	public void setPlanId(Integer planId) {
+		this.currentPlan = planId;
 	}
+
+
+	public Integer getPhoneId() {
+		return currentPhone;
+	}
+
+
+	public void setPhoneId(Integer phoneId) {
+		this.currentPhone = phoneId;
+	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
+
+	public Integer getSsn() {
+		return ssn;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public void setSsn(Integer ssn) {
+		this.ssn = ssn;
 	}
 
-	public int getPhoneId() {
-		return phoneId;
-	}
-
-	public void setPhoneId(int phoneId) {
-		this.phoneId = phoneId;
-	}
 
 	public static Customer valueOf(CustomerDTO postCustomer) 
 	{
 		Customer customer = new Customer();
 		
-		customer.setPhoneNumber(postCustomer.getPhoneNumber());
-		customer.setName(postCustomer.getName());
+		customer.setFirstName(postCustomer.getFirstName());
+		customer.setMiddleName(postCustomer.getMiddleName());
+		customer.setLastName(postCustomer.getLastName());
+		
 		customer.setAge(postCustomer.getAge());
+		customer.setPhoneNumber(postCustomer.getPhoneNumber());
+		
+		customer.seteMail(postCustomer.geteMail());
 		customer.setAddress(postCustomer.getAddress());
+		
 		customer.setPassword(postCustomer.getPassword());
+		customer.setSsn(postCustomer.getSsn());
 		
 		return customer;
 	}
 
-}
 
-/*
- * CREATE TABLE Customer( phone_number BIGINT PRIMARY KEY, customer_name
- * VARCHAR(50), age INTEGER, address VARCHAR(50), plan_id INTEGER, password
- * VARCHAR(50) );
- */
+	public static Customer updateEntity(Customer foundCustomer, CustomerDTO updateCustomer) {
+			
+	
+		foundCustomer.setFirstName(updateCustomer.getFirstName());
+		foundCustomer.setMiddleName(updateCustomer.getMiddleName());
+		foundCustomer.setLastName(updateCustomer.getLastName());
+		foundCustomer.setAge(updateCustomer.getAge());
+		foundCustomer.setPhoneNumber(updateCustomer.getPhoneNumber());
+		foundCustomer.seteMail(updateCustomer.geteMail());
+		foundCustomer.setAddress(updateCustomer.getAddress());
+		foundCustomer.setPassword(updateCustomer.getPassword());
+		foundCustomer.setSsn(updateCustomer.getSsn());
+
+//		foundCustomer.currentPlan = updateCustomer.getCurrentPlan().getId();
+//		foundCustomer.currentPhone = updateCustomer.getCurrentPhone().getId();
+		
+		return foundCustomer;
+	}
+
+}

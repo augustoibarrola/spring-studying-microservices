@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ms.hotlinebling.phone.dto.PhoneDTO;
+
 @Entity
 @Table(name = "Phone")
 public class Phone 
@@ -36,6 +38,16 @@ public class Phone
 	}
 	public void setOperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;
+	}
+	
+	public static Phone valueOf(PhoneDTO phoneDTO) {
+		Phone phone = new Phone();
+		
+		phone.setPhoneId(phoneDTO.getPhoneId());
+		phone.setName(phoneDTO.getName());
+		phone.setOperatingSystem(phoneDTO.getOperatingSystem());
+		
+		return phone;
 	}
 	
 }

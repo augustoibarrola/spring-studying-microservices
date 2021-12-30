@@ -24,4 +24,15 @@ public class PhoneService
 		return null;
 	}
 
+	public PhoneDTO postNewPhone(PhoneDTO phoneDTO) 
+	{
+		Phone phone = Phone.valueOf(phoneDTO);
+		
+		phone = phoneRepo.save(phone);
+		
+		phoneDTO.setPhoneId(phone.getPhoneId());
+		
+		return phoneDTO;
+	}
+
 }

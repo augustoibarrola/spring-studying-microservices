@@ -2,15 +2,15 @@ package ms.hotlinebling.customer.dto;
 
 public class PhoneDTO 
 {
-	private int phoneId;
+	private int id;
 	private String name;
 	private String operatingSystem;
 	
-	public int getPhoneId() {
-		return phoneId;
+	public int getId() {
+		return id;
 	}
-	public void setPhoneId(int phoneId) {
-		this.phoneId = phoneId;
+	public void setId(int phoneId) {
+		this.id = phoneId;
 	}
 	public String getName() {
 		return name;

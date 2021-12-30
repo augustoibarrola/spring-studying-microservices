@@ -3,21 +3,22 @@ CREATE DATABASE hotlinebling_customer;
 USE hotlinebling_customer;
 
 CREATE TABLE Customer(
-	customer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
+	first_name VARCHAR(50),
+	last_name VARCHAR(50),
+	middle_name VARCHAR(50),
+	age INT,
 	phone_number BIGINT,
-	customer_name VARCHAR(50),
-	age INTEGER,
+	e_mail VARCHAR(50),
 	address VARCHAR(50),
 	plan_id INTEGER,
 	phone_id INTEGER,
-	password VARCHAR(50)
+	password VARCHAR(50), 
+	ssn INT,
+	CONSTRAINT Customer_id_pk PRIMARY KEY (id)
 );
 
 INSERT INTO Customer
-	(phone_number, customer_name, age, plan_id, password, phone_id)
+	(first_name, last_name, middle_name, age, phone_number, e_mail, address, plan_id, phone_id, password, ssn)
 VALUES
-(606060, 'Augusto', 25, 1, '123', 1), 
-(101010, 'Anastasia', 6, 2, '123', 2), 
-(303030, 'Ricardo', 26, 3, '123', 1), 
-(202020, 'Princess', 16, 2, '123', 4), 
-(404040, 'Hunter', 8, 1, '123', 1); 
+('Augusto','Tomas','Ibarrola', 25, 2011234567, 'augusto@email.com', 'address',1, 1,'123', 111);
