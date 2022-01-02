@@ -4,8 +4,7 @@
 	<Appenders>
 
 		<Console name="ConsoleAppender" target="SYSTEM_OUT">
-			<!--<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss}[%-5level][%logger][%t] - %m%n" />  -->
-			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} [%logger][%t] %highlight{[%-5level] - %m%n}{INFO=green}" />
+			<PatternLayout pattern="%style{%d{dd-MMM-yyyy HH:mm:ss}}{YELLOW} [%logger][%t] %highlight{%-5level - %m%n}{INFO=green}" /> 
 		</Console>
 
 	</Appenders>

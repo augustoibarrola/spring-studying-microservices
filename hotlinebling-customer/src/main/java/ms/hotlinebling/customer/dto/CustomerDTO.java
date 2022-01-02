@@ -21,7 +21,7 @@ public class CustomerDTO
 	Integer ssn;
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
@@ -29,7 +29,7 @@ public class CustomerDTO
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -37,7 +37,7 @@ public class CustomerDTO
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -45,7 +45,7 @@ public class CustomerDTO
 	}
 
 	public String getMiddleName() {
-		return middleName;
+		return this.middleName;
 	}
 
 	public void setMiddleName(String middleName) {
@@ -53,7 +53,7 @@ public class CustomerDTO
 	}
 
 	public Integer getAge() {
-		return age;
+		return this.age;
 	}
 
 	public void setAge(Integer age) {
@@ -61,7 +61,7 @@ public class CustomerDTO
 	}
 
 	public Long getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 	public void setPhoneNumber(Long phoneNumber) {
@@ -69,7 +69,7 @@ public class CustomerDTO
 	}
 
 	public String geteMail() {
-		return eMail;
+		return this.eMail;
 	}
 
 	public void seteMail(String eMail) {
@@ -77,7 +77,7 @@ public class CustomerDTO
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
@@ -85,7 +85,7 @@ public class CustomerDTO
 	}
 
 	public PlanDTO getCurrentPlan() {
-		return currentPlan;
+		return this.currentPlan;
 	}
 
 	public void setCurrentPlan(PlanDTO currentPlan) {
@@ -93,7 +93,7 @@ public class CustomerDTO
 	}
 
 	public PhoneDTO getCurrentPhone() {
-		return currentPhone;
+		return this.currentPhone;
 	}
 
 	public void setCurrentPhone(PhoneDTO currentPhone) {
@@ -101,7 +101,7 @@ public class CustomerDTO
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -109,7 +109,7 @@ public class CustomerDTO
 	}
 
 	public Integer getSsn() {
-		return ssn;
+		return this.ssn;
 	}
 
 	public void setSsn(Integer ssn) {
@@ -120,6 +120,7 @@ public class CustomerDTO
 	{
 		CustomerDTO customerDTO = new CustomerDTO();
 		
+		customerDTO.setId(customer.getId());
 		customerDTO.setFirstName(customer.getFirstName());
 		customerDTO.setMiddleName(customer.getMiddleName());
 		customerDTO.setLastName(customer.getLastName());

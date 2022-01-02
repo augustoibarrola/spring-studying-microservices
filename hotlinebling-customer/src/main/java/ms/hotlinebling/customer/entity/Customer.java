@@ -37,7 +37,7 @@ public class Customer {
 	Integer ssn;
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 
@@ -47,7 +47,7 @@ public class Customer {
 
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 
@@ -57,7 +57,7 @@ public class Customer {
 
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 
@@ -67,7 +67,7 @@ public class Customer {
 
 
 	public String getMiddleName() {
-		return middleName;
+		return this.middleName;
 	}
 
 
@@ -77,7 +77,7 @@ public class Customer {
 
 
 	public Integer getAge() {
-		return age;
+		return this.age;
 	}
 
 
@@ -87,7 +87,7 @@ public class Customer {
 
 
 	public long getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 
 
@@ -97,7 +97,7 @@ public class Customer {
 
 
 	public String geteMail() {
-		return eMail;
+		return this.eMail;
 	}
 
 
@@ -107,7 +107,7 @@ public class Customer {
 
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 
@@ -117,7 +117,7 @@ public class Customer {
 
 
 	public Integer getPlanId() {
-		return currentPlan;
+		return this.currentPlan;
 	}
 
 
@@ -127,7 +127,7 @@ public class Customer {
 
 
 	public Integer getPhoneId() {
-		return currentPhone;
+		return this.currentPhone;
 	}
 
 
@@ -137,7 +137,7 @@ public class Customer {
 
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 
@@ -147,7 +147,7 @@ public class Customer {
 
 
 	public Integer getSsn() {
-		return ssn;
+		return this.ssn;
 	}
 
 
@@ -160,6 +160,7 @@ public class Customer {
 	{
 		Customer customer = new Customer();
 		
+		customer.setId(postCustomer.getId());
 		customer.setFirstName(postCustomer.getFirstName());
 		customer.setMiddleName(postCustomer.getMiddleName());
 		customer.setLastName(postCustomer.getLastName());
