@@ -21,4 +21,4 @@ CREATE TABLE Customer(
 INSERT INTO Customer
 	(first_name, last_name, middle_name, age, phone_number, e_mail, address, plan_id, phone_id, password, ssn)
 VALUES
-('Augusto','Tomas','Ibarrola', 25, 2011234567, 'augusto@email.com', 'address',1, 1,'123', 111);
+('Augusto','Ibarrola','Tomas', 25, 2012836688, 'augusto@email.com', 'address',1, 1,'password', 123456789);

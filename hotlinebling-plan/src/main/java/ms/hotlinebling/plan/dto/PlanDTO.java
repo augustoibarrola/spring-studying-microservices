@@ -9,27 +9,27 @@ public class PlanDTO
 	Integer localRate;
 	
 	public Integer getPlanId() {
-		return planId;
+		return this.planId;
 	}
 	public void setPlanId(Integer planId) {
 		this.planId = planId;
 	}
 	public String getPlanName() {
-		return planName;
+		return this.planName;
 	}
 	public void setPlanName(String planName) {
 		this.planName = planName;
 	}
 	public Integer getLocalRate() {
-		return localRate;
+		return this.localRate;
 	}
 	public void setLocalRate(Integer localRate) {
 		this.localRate = localRate;
 	}
-	
 	public static PlanDTO valueOf(Plan plan)
 	{
 		PlanDTO planDTO = new PlanDTO();
+		
 		planDTO.setPlanId(plan.getPlanId());
 		planDTO.setPlanName(plan.getPlanName());
 		planDTO.setLocalRate(plan.getLocalRate());

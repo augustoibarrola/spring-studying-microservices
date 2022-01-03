@@ -15,26 +15,26 @@ public class Phone
 	@Id
 	@GeneratedValue
 	@Column(name = "phone_id", nullable = false)
-	private int phoneId;
+	private Integer phoneId;
 	@Column(name = "name", nullable = false)
 	private String name;
 	@Column(name = "os", nullable = false)
 	private String operatingSystem;
 	
-	public int getPhoneId() {
-		return phoneId;
+	public Integer getPhoneId() {
+		return this.phoneId;
 	}
 	public void setPhoneId(int phoneId) {
 		this.phoneId = phoneId;
 	}
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getOperatingSystem() {
-		return operatingSystem;
+		return this.operatingSystem;
 	}
 	public void setOperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;

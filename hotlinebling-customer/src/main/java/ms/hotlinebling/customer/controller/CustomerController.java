@@ -42,7 +42,7 @@ public class CustomerController
 	
 	/***	http://localhost:8200/customers	***/
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CustomerDTO> getCustomers()
+	public List<CustomerDTO> getAllCustomers()
 	{
 		
 		List<CustomerDTO> customers = customerService.getCustomers();
@@ -55,20 +55,17 @@ public class CustomerController
 	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
 	{
 		CustomerDTO customerDTO = customerService.getCustomerDetailsById(Integer.parseInt(customer_id));
-		
-		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
-		ServiceInstance planInstance = planInstances.get(0);
-		URI planUri = planInstance.getUri();
-		
-		PlanDTO planDTO = new RestTemplate().getForObject(planUri +"/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
-		customerDTO.setCurrentPlan(planDTO);
-		
-		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
-		ServiceInstance phoneInstance = phoneInstances.get(0);
-		URI phoneURI = phoneInstance.getUri();
-		
-		PhoneDTO phoneDTO = new RestTemplate().getForObject(phoneURI + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
-		customerDTO.setCurrentPhone(phoneDTO);
+			
+//		PhoneDTO phoneDTO = new RestTemplate().getForObject(
+//				getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), 
+//				PhoneDTO.class);
+//		customerDTO.setCurrentPhone(phoneDTO);
+//
+//		PlanDTO planDTO = new RestTemplate().getForObject(
+//				getPlanURI() +"/plan/" + customerDTO.getCurrentPlan().getId(), 
+//				PlanDTO.class);
+//		customerDTO.setCurrentPlan(planDTO);
+//		
 		
 		return customerDTO;
 	}
@@ -80,17 +77,17 @@ public class CustomerController
 		
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
 		
-//		PhoneDTO phoneDTO = new RestTemplate().postForObject(
-//				getPhoneURI() + "/phones", 
-//				postCustomer.getCurrentPhone(), 
-//				PhoneDTO.class);
-//		postedCustomer.setCurrentPhone(phoneDTO);
-//		
-//		PlanDTO planDTO = new RestTemplate().postForObject(
-//				getPlanURI() + "/plans", 
-//				postCustomer.getCurrentPlan(), 
-//				PlanDTO.class);
-//		postedCustomer.setCurrentPlan(planDTO);
+		PhoneDTO phoneDTO = new RestTemplate().postForObject(
+				getPhoneURI() + "/phones", 
+				postCustomer.getCurrentPhone(), 
+				PhoneDTO.class);
+		postedCustomer.setCurrentPhone(phoneDTO);
+		
+		PlanDTO planDTO = new RestTemplate().postForObject(
+				getPlanURI() + "/plans", 
+				postCustomer.getCurrentPlan(), 
+				PlanDTO.class);
+		postedCustomer.setCurrentPlan(planDTO);
 		
 		return postedCustomer;
 	}
