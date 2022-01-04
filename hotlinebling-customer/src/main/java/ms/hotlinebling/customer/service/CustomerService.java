@@ -84,7 +84,6 @@ public class CustomerService
 		}
 	}
 
-	
 	private Optional<Customer> findCustomer(String customer_id) throws CustomerException
 	{
 		return customerRepo.findById(Integer.parseInt(customer_id));

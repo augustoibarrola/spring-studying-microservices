@@ -31,33 +31,31 @@ import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
 @CrossOrigin
-public class CustomerController 
-{
-	
+public class CustomerController {
+
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	CustomerService customerService;
-	
+
 	@Autowired
 	DiscoveryClient discoveryClient;
-	
-	/***	http://localhost:8200/customers	***/
+
+	/*** http://localhost:8200/customers ***/
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CustomerDTO> getAllCustomers()
-	{
-		
+	public List<CustomerDTO> getAllCustomers() {
+
 		List<CustomerDTO> customers = customerService.getCustomers();
-		
+		logger.info("Customers retrieved successfully from DB.");
+
 		return customers;
 	}
-	
-	/***	http://localhost:8200/customer/1	***/
+
+	/*** http://localhost:8200/customer/1 ***/
 	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerById(@PathVariable String customer_id)
-	{
+	public CustomerDTO getCustomerById(@PathVariable String customer_id) {
 		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
-			
+
 //		PhoneDTO phoneDTO = new RestTemplate().getForObject(
 //				getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), 
 //				PhoneDTO.class);
@@ -68,90 +66,106 @@ public class CustomerController
 //				PlanDTO.class);
 //		customerDTO.setCurrentPlan(planDTO);
 //		
-		
+
+		logger.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
+
 		return customerDTO;
 	}
-	
-	/***	http://localhost:8200/customers	***/
-	@PostMapping(value = "/customers",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer)
-	{
-		
+
+	/*** http://localhost:8200/customers ***/
+	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) {
+
 		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
-		
-		PhoneDTO phoneDTO = new RestTemplate().postForObject(
-				getPhoneURI() + "/phones", 
-				postCustomer.getCurrentPhone(), 
-				PhoneDTO.class);
-		postedCustomer.setCurrentPhone(phoneDTO);
-		
-		PlanDTO planDTO = new RestTemplate().postForObject(
-				getPlanURI() + "/plans", 
-				postCustomer.getCurrentPlan(), 
-				PlanDTO.class);
-		postedCustomer.setCurrentPlan(planDTO);
-		
+
+//		PhoneDTO phoneDTO = new RestTemplate().postForObject(
+//				getPhoneURI() + "/phones", 
+//				postCustomer.getCurrentPhone(), 
+//				PhoneDTO.class);
+//		postedCustomer.setCurrentPhone(phoneDTO);
+//		
+//		PlanDTO planDTO = new RestTemplate().postForObject(
+//				getPlanURI() + "/plans", 
+//				postCustomer.getCurrentPlan(), 
+//				PlanDTO.class);
+//		postedCustomer.setCurrentPlan(planDTO);
+
+		logger.info("Customer ${" + postedCustomer.getId() + "} posted successfully to DB.");
+
 		return postedCustomer;
 	}
-	
-	/***	http://localhost:8200/customer/1	
-	 * @throws CustomerException ***/
-	@PutMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) throws CustomerException 
-	{
-		
+
+	/***
+	 * http://localhost:8200/customer/1
+	 * 
+	 * @throws CustomerException
+	 ***/
+	@PutMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer)
+			throws CustomerException {
+
 		CustomerDTO updatedCustomer;
+		
 		try {
+			
 			updatedCustomer = customerService.updateCustomerById(customer_id, updateCustomer);
+			
+			logger.info("Customer ${" + updatedCustomer.getId() + "} updated successfully in DB.");
+			
 			return updatedCustomer;
+			
 		} catch (CustomerException exception) {
-			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+			
+			logger.error(exception.getMessage(), exception.getCause());
+			
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
 		}
-		
+
 	}
-	
-	/***	http://localhost:8200/customer/1	
-	 * @throws CustomerException ***/
-	@DeleteMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException
-	{
-		
+
+	/***
+	 * http://localhost:8200/customer/1
+	 * 
+	 * @throws CustomerException
+	 ***/
+	@DeleteMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException {
+
 		try {
 			customerService.deleteCustomerById(customer_id);
 			String customerDeletedMsg = "Customer " + customer_id + " has been deleted.";
+			logger.info("Customer ${" + customer_id + "} deleted successfully from DB.");
 			return customerDeletedMsg;
-			
+
 		} catch (CustomerException exception) {
-			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause()); 
+			logger.error(exception.getMessage(), exception.getCause());
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
 		}
-		
-		
+
 	}
-	
-	
+
 	/*
 	 * Helper Methods
 	 */
-	
+
 	/*
 	 * @return uri for phone microservice instance
 	 */
-	public URI getPhoneURI() 
-	{
+	public URI getPhoneURI() {
 		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
 		ServiceInstance phoneInstance = phoneInstances.get(0);
 		return phoneInstance.getUri();
 	}
-	
+
 	/*
 	 * @return uri for plan microservice instance
 	 */
-	public URI getPlanURI() 
-	{
+	public URI getPlanURI() {
 		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
 		ServiceInstance planInstance = planInstances.get(0);
 		return planInstance.getUri();
 	}
-	
-	
+
 }
