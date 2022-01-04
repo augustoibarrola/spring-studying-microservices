@@ -51,16 +51,26 @@ public class CustomerService
 		return customerDTOs;
 	}
 
-	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) 
+	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException
 	{
-		
-		Customer foundCustomer = customerRepo.getById(customer_id);
-		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer);
-		Customer updatedCustomer = customerRepo.save(foundCustomer); 
-		CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
+		try 
+		{
+			Optional<Customer> foundCustomer = findCustomer(customer_id);
+			if(foundCustomer.isPresent())
+			{				
+				Customer customer = foundCustomer.get();
+				customer = Customer.updateEntity(customer, updateCustomer);
+				Customer updatedCustomer = customerRepo.save(customer); 
+				CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
 				
-		
-		return updatedCustomerDTO;
+				return updatedCustomerDTO;
+			}
+			
+			return null;
+		} catch (CustomerException exception)
+		{
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		}
 	}
 
 	public void deleteCustomerById(String customer_id) throws CustomerException
@@ -74,10 +84,14 @@ public class CustomerService
 		}
 	}
 
-	private void deleteCustomer(String customer_id) throws CustomerException
+	
+	private Optional<Customer> findCustomer(String customer_id) throws CustomerException
 	{
-		
-		customerRepo.deleteById(Integer.parseInt(customer_id));
-		
+		return customerRepo.findById(Integer.parseInt(customer_id));
+	}
+	
+	private void deleteCustomer(String customer_id) throws CustomerException
+	{	
+		customerRepo.deleteById(Integer.parseInt(customer_id));	
 	}
 }

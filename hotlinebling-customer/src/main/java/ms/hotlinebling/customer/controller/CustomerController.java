@@ -94,15 +94,20 @@ public class CustomerController
 		return postedCustomer;
 	}
 	
-	/***	http://localhost:8200/customer/1	***/
+	/***	http://localhost:8200/customer/1	
+	 * @throws CustomerException ***/
 	@PutMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) 
+	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) throws CustomerException 
 	{
 		
-		int id = Integer.parseInt(customer_id);
-		CustomerDTO updatedCustomer = customerService.updateCustomerById(id, updateCustomer);
+		CustomerDTO updatedCustomer;
+		try {
+			updatedCustomer = customerService.updateCustomerById(customer_id, updateCustomer);
+			return updatedCustomer;
+		} catch (CustomerException exception) {
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
 		
-		return updatedCustomer;
 	}
 	
 	/***	http://localhost:8200/customer/1	
