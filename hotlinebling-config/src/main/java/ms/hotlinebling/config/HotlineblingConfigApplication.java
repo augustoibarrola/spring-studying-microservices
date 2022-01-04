@@ -13,3 +13,9 @@ public class HotlineblingConfigApplication {
 	}
 
 }
+
+
+/*TODO HotlineblingConfigApplication should be renamed to HotlineblingConfigServer;
+ *
+*/
+

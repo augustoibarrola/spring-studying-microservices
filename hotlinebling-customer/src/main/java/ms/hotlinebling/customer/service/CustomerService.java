@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
+import ms.hotlinebling.customer.exception.CustomerException;
 import ms.hotlinebling.customer.repository.CustomerRepository;
 
 @Service(value="customerService")
@@ -23,7 +24,7 @@ public class CustomerService
 	@Autowired
 	CustomerRepository customerRepo;
 	
-	public CustomerDTO getCustomerDetailsById(int customer_id)
+	public CustomerDTO getCustomerById(int customer_id)
 	{		
 		Customer customer = customerRepo.getById(customer_id);
 		CustomerDTO customerDTO = CustomerDTO.valueOf(customer);
@@ -35,37 +36,61 @@ public class CustomerService
 	{
 		
 		Customer customer = Customer.valueOf(postCustomer);
-		
 		customerRepo.save(customer);
-		
 		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 		
 		return postedCustomer;
 	}
 
-	public List<CustomerDTO> getCustomers() {
+	public List<CustomerDTO> getCustomers() 
+	{
 		
 		List<Customer> customers = customerRepo.findAll();
-		
 		List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
 		
 		return customerDTOs;
 	}
 
-	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) {
-		System.out.print("\n\n SERVICE HIT \n\n");
-		Customer foundCustomer = customerRepo.getById(customer_id);
-		System.out.println(foundCustomer.toString());
-		
-		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer);
-		
-		Customer updatedCustomer = customerRepo.save(foundCustomer); 
-		
-		CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
+	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException
+	{
+		try 
+		{
+			Optional<Customer> foundCustomer = findCustomer(customer_id);
+			if(foundCustomer.isPresent())
+			{				
+				Customer customer = foundCustomer.get();
+				customer = Customer.updateEntity(customer, updateCustomer);
+				Customer updatedCustomer = customerRepo.save(customer); 
+				CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
 				
-		System.out.print("\n\n UPDATED CUSTOMER \n\n");
-		
-		return updatedCustomerDTO;
+				return updatedCustomerDTO;
+			}
+			
+			return null;
+		} catch (CustomerException exception)
+		{
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		}
 	}
 
+	public void deleteCustomerById(String customer_id) throws CustomerException
+	{
+		try 
+		{	
+			deleteCustomer(customer_id);
+		} catch(CustomerException exception)
+		{
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
+	}
+
+	private Optional<Customer> findCustomer(String customer_id) throws CustomerException
+	{
+		return customerRepo.findById(Integer.parseInt(customer_id));
+	}
+	
+	private void deleteCustomer(String customer_id) throws CustomerException
+	{	
+		customerRepo.deleteById(Integer.parseInt(customer_id));	
+	}
 }

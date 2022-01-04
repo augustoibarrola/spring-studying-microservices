@@ -23,19 +23,19 @@ public class Plan
 	Integer localRate;
 	
 	public Integer getPlanId() {
-		return planId;
+		return this.planId;
 	}
 	public void setPlanId(Integer planId) {
 		this.planId = planId;
 	}
 	public String getPlanName() {
-		return planName;
+		return this.planName;
 	}
 	public void setPlanName(String planName) {
 		this.planName = planName;
 	}
 	public Integer getLocalRate() {
-		return localRate;
+		return this.localRate;
 	}
 	public void setLocalRate(Integer localRate) {
 		this.localRate = localRate;
@@ -44,6 +44,7 @@ public class Plan
 		
 		Plan plan = new Plan();
 		
+		plan.setPlanId(newPlan.getPlanId());
 		plan.setPlanName(newPlan.getPlanName());
 		plan.setLocalRate(newPlan.getLocalRate());
 		

@@ -16,7 +16,6 @@ public class HotlineblingCustomerApplication {
 }
 
 /* @EnableDiscoveryClient
- * 		- marks an application as both a Eureka instance
- * 		  and a Eureka client.  
+ * 		- marks an application as both a Eureka instance and a Eureka client.  
  * 
  */

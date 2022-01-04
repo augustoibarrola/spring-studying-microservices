@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+
+	<Appenders>
+
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%style{%d{dd-MMM-yyyy HH:mm:ss}}{YELLOW} [%logger][%t] %highlight{%-5level - %m%n}{INFO=green}" /> 
+		</Console>
+
+	</Appenders>
+	<Loggers>
+		<Logger name="ms.hotlinebling.customer" level="DEBUG"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+		<Logger name="ms.hotlinebling.customer.controller" level="INFO"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+		<Logger name="org.springframework.boot" level="ERROR"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+		<Logger name="org.hibernate.type" level="TRACE"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+				<Logger name="org.hibernate.stat" level="DEBUG"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Logger>
+		<Root level="ERROR" additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+		</Root>
+
+	</Loggers>
+
+</Configuration>

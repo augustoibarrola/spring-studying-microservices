@@ -4,24 +4,24 @@ import ms.hotlinebling.phone.entity.Phone;
 
 public class PhoneDTO 
 {
-	private int phoneId;
+	private Integer phoneId;
 	private String name;
 	private String operatingSystem;
 	
-	public int getPhoneId() {
-		return phoneId;
+	public Integer getPhoneId() {
+		return this.phoneId;
 	}
 	public void setPhoneId(int phoneId) {
 		this.phoneId = phoneId;
 	}
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getOperatingSystem() {
-		return operatingSystem;
+		return this.operatingSystem;
 	}
 	public void setOperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;
