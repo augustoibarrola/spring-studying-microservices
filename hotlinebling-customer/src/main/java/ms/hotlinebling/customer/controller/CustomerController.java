@@ -14,6 +14,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,9 +53,9 @@ public class CustomerController
 	
 	/***	http://localhost:8200/customer/1	***/
 	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerDetailsById(@PathVariable String customer_id)
+	public CustomerDTO getCustomerById(@PathVariable String customer_id)
 	{
-		CustomerDTO customerDTO = customerService.getCustomerDetailsById(Integer.parseInt(customer_id));
+		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
 			
 //		PhoneDTO phoneDTO = new RestTemplate().getForObject(
 //				getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), 
@@ -94,13 +95,26 @@ public class CustomerController
 	
 	/***	http://localhost:8200/customer/1	***/
 	@PutMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO updateCustomerDetailsById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) 
+	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) 
 	{
 		
 		int id = Integer.parseInt(customer_id);
 		CustomerDTO updatedCustomer = customerService.updateCustomerById(id, updateCustomer);
 		
 		return updatedCustomer;
+	}
+	
+	/***	http://localhost:8200/customer/1	***/
+	@DeleteMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public String deleteCustomerById(@PathVariable String customer_id)
+	{
+		
+		customerService.deleteCustomerById(customer_id);
+		
+		String customerDeletedMsg = "Customer " + customer_id + " has been deleted.";
+		
+		
+		return customerDeletedMsg;
 	}
 	
 	

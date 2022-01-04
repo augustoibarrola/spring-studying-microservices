@@ -23,7 +23,7 @@ public class CustomerService
 	@Autowired
 	CustomerRepository customerRepo;
 	
-	public CustomerDTO getCustomerDetailsById(int customer_id)
+	public CustomerDTO getCustomerById(int customer_id)
 	{		
 		Customer customer = customerRepo.getById(customer_id);
 		CustomerDTO customerDTO = CustomerDTO.valueOf(customer);
@@ -35,37 +35,43 @@ public class CustomerService
 	{
 		
 		Customer customer = Customer.valueOf(postCustomer);
-		
 		customerRepo.save(customer);
-		
 		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 		
 		return postedCustomer;
 	}
 
-	public List<CustomerDTO> getCustomers() {
+	public List<CustomerDTO> getCustomers() 
+	{
 		
 		List<Customer> customers = customerRepo.findAll();
-		
 		List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
 		
 		return customerDTOs;
 	}
 
-	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) {
-		System.out.print("\n\n SERVICE HIT \n\n");
+	public CustomerDTO updateCustomerById(int customer_id, CustomerDTO updateCustomer) 
+	{
+		
 		Customer foundCustomer = customerRepo.getById(customer_id);
-		System.out.println(foundCustomer.toString());
-		
 		foundCustomer = Customer.updateEntity(foundCustomer, updateCustomer);
-		
 		Customer updatedCustomer = customerRepo.save(foundCustomer); 
-		
 		CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
 				
-		System.out.print("\n\n UPDATED CUSTOMER \n\n");
 		
 		return updatedCustomerDTO;
 	}
 
+	public void deleteCustomerById(String customer_id) 
+	{
+		try
+		{			
+			customerRepo.deleteById((long) Integer.parseInt(customer_id));
+		} catch (Exception exception)
+		{
+			System.out.println("\n\n SOMETHING WENT WRONG IN CustomerService.deleteCustomerById() \n\n");
+		}
+		
+	}
+//8pm-822pm
 }
