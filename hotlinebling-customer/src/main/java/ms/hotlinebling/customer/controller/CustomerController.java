@@ -46,6 +46,7 @@ public class CustomerController {
 	public List<CustomerDTO> getAllCustomers() {
 
 		List<CustomerDTO> customers = customerService.getCustomers();
+		
 		logger.info("Customers retrieved successfully from DB.");
 
 		return customers;
@@ -56,16 +57,8 @@ public class CustomerController {
 	public CustomerDTO getCustomerById(@PathVariable String customer_id) {
 		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
 
-//		PhoneDTO phoneDTO = new RestTemplate().getForObject(
-//				getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), 
-//				PhoneDTO.class);
-//		customerDTO.setCurrentPhone(phoneDTO);
-//
-//		PlanDTO planDTO = new RestTemplate().getForObject(
-//				getPlanURI() +"/plan/" + customerDTO.getCurrentPlan().getId(), 
-//				PlanDTO.class);
-//		customerDTO.setCurrentPlan(planDTO);
-//		
+		setCustomerPhone(customerDTO);
+		setCustomerPlan(customerDTO);
 
 		logger.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
 
@@ -76,23 +69,14 @@ public class CustomerController {
 	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) {
 
-		CustomerDTO postedCustomer = customerService.postNewCustomer(postCustomer);
+		CustomerDTO customerDTO = customerService.postNewCustomer(postCustomer);
 
-//		PhoneDTO phoneDTO = new RestTemplate().postForObject(
-//				getPhoneURI() + "/phones", 
-//				postCustomer.getCurrentPhone(), 
-//				PhoneDTO.class);
-//		postedCustomer.setCurrentPhone(phoneDTO);
-//		
-//		PlanDTO planDTO = new RestTemplate().postForObject(
-//				getPlanURI() + "/plans", 
-//				postCustomer.getCurrentPlan(), 
-//				PlanDTO.class);
-//		postedCustomer.setCurrentPlan(planDTO);
+		postNewCustomerPhone(customerDTO);
+		postNewCustomerPlan(customerDTO);
 
-		logger.info("Customer ${" + postedCustomer.getId() + "} posted successfully to DB.");
+		logger.info("Customer ${" + customerDTO.getId() + "} posted successfully to DB.");
 
-		return postedCustomer;
+		return customerDTO;
 	}
 
 	/***
@@ -105,19 +89,19 @@ public class CustomerController {
 			throws CustomerException {
 
 		CustomerDTO updatedCustomer;
-		
+
 		try {
-			
+
 			updatedCustomer = customerService.updateCustomerById(customer_id, updateCustomer);
-			
+
 			logger.info("Customer ${" + updatedCustomer.getId() + "} updated successfully in DB.");
-			
+
 			return updatedCustomer;
-			
+
 		} catch (CustomerException exception) {
-			
+
 			logger.error(exception.getMessage(), exception.getCause());
-			
+
 			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
@@ -134,8 +118,8 @@ public class CustomerController {
 
 		try {
 			customerService.deleteCustomerById(customer_id);
-			String customerDeletedMsg = "Customer " + customer_id + " has been deleted.";
-			logger.info("Customer ${" + customer_id + "} deleted successfully from DB.");
+			String customerDeletedMsg = "Customer ${" + customer_id + "} deleted successfully from DB.";
+			logger.info(customerDeletedMsg);
 			return customerDeletedMsg;
 
 		} catch (CustomerException exception) {
@@ -149,6 +133,34 @@ public class CustomerController {
 	/*
 	 * Helper Methods
 	 */
+
+	private void setCustomerPhone(CustomerDTO customerDTO) {
+		PhoneDTO phoneDTO = new RestTemplate()
+				.getForObject(getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
+
+		customerDTO.setCurrentPhone(phoneDTO);
+	}
+
+	private void setCustomerPlan(CustomerDTO customerDTO) {
+		PlanDTO planDTO = new RestTemplate()
+				.getForObject(getPlanURI() + "/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
+
+		customerDTO.setCurrentPlan(planDTO);
+	}
+	
+	private void postNewCustomerPlan(CustomerDTO customerDTO) {
+//		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans", postCustomer.getCurrentPlan(),
+//				PlanDTO.class);
+//		customerDTO.setCurrentPlan(planDTO);
+
+	}
+
+	private void postNewCustomerPhone(CustomerDTO customerDTO) {
+//		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI() + "/phones", customerDTO.getCurrentPhone(),
+//				PhoneDTO.class);
+//		customerDTO.setCurrentPhone(phoneDTO);
+
+	}
 
 	/*
 	 * @return uri for phone microservice instance
