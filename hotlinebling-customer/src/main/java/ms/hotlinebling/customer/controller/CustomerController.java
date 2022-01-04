@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.dto.PhoneDTO;
 import ms.hotlinebling.customer.dto.PlanDTO;
+import ms.hotlinebling.customer.exception.CustomerException;
 import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
@@ -104,17 +105,22 @@ public class CustomerController
 		return updatedCustomer;
 	}
 	
-	/***	http://localhost:8200/customer/1	***/
+	/***	http://localhost:8200/customer/1	
+	 * @throws CustomerException ***/
 	@DeleteMapping(value="/customer/{customer_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCustomerById(@PathVariable String customer_id)
+	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException
 	{
 		
-		customerService.deleteCustomerById(customer_id);
+		try {
+			customerService.deleteCustomerById(customer_id);
+			String customerDeletedMsg = "Customer " + customer_id + " has been deleted.";
+			return customerDeletedMsg;
+			
+		} catch (CustomerException exception) {
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause()); 
+		}
 		
-		String customerDeletedMsg = "Customer " + customer_id + " has been deleted.";
 		
-		
-		return customerDeletedMsg;
 	}
 	
 	

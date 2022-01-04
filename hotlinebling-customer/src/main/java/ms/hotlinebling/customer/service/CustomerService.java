@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
+import ms.hotlinebling.customer.exception.CustomerException;
 import ms.hotlinebling.customer.repository.CustomerRepository;
 
 @Service(value="customerService")
@@ -62,16 +63,21 @@ public class CustomerService
 		return updatedCustomerDTO;
 	}
 
-	public void deleteCustomerById(String customer_id) 
+	public void deleteCustomerById(String customer_id) throws CustomerException
 	{
-		try
-		{			
-			customerRepo.deleteById((long) Integer.parseInt(customer_id));
-		} catch (Exception exception)
+		try 
+		{	
+			deleteCustomer(customer_id);
+		} catch(CustomerException exception)
 		{
-			System.out.println("\n\n SOMETHING WENT WRONG IN CustomerService.deleteCustomerById() \n\n");
+			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
+	}
+
+	private void deleteCustomer(String customer_id) throws CustomerException
+	{
+		
+		customerRepo.deleteById(Integer.parseInt(customer_id));
 		
 	}
-//8pm-822pm
 }
