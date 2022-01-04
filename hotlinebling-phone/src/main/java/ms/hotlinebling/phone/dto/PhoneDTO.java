@@ -1,5 +1,8 @@
 package ms.hotlinebling.phone.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ms.hotlinebling.phone.entity.Phone;
 
 public class PhoneDTO 
@@ -34,6 +37,18 @@ public class PhoneDTO
 		phoneDTO.setOperatingSystem(phone.getOperatingSystem());
 		
 		return phoneDTO;
+	}
+	public static List<PhoneDTO> valueOf(List<Phone> phones) {
+		
+		List<PhoneDTO> phoneDTOs = new ArrayList<>();
+		
+		for(Phone phone : phones)
+		{
+			phoneDTOs.add(PhoneDTO.valueOf(phone));
+		}
+		
+		return phoneDTOs;
+		
 	}
 	
 }

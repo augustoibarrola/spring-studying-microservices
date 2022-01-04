@@ -43,11 +43,19 @@ public class Phone
 	public static Phone valueOf(PhoneDTO phoneDTO) {
 		Phone phone = new Phone();
 		
-		phone.setPhoneId(phoneDTO.getPhoneId());
 		phone.setName(phoneDTO.getName());
 		phone.setOperatingSystem(phoneDTO.getOperatingSystem());
 		
 		return phone;
+	}
+	
+	public static Phone updateEntity(Phone foundPhone, PhoneDTO updatePhone) {
+		
+
+		foundPhone.setName(updatePhone.getName());
+		foundPhone.setOperatingSystem(updatePhone.getOperatingSystem());
+		
+		return foundPhone;
 	}
 	
 }

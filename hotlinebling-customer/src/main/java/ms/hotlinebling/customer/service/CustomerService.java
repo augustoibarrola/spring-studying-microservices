@@ -42,7 +42,7 @@ public class CustomerService
 		return postedCustomer;
 	}
 
-	public List<CustomerDTO> getCustomers() 
+	public List<CustomerDTO> getAllCustomers() 
 	{
 		
 		List<Customer> customers = customerRepo.findAll();
