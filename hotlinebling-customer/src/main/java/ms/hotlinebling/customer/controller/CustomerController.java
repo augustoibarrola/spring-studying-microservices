@@ -24,7 +24,7 @@ import ms.hotlinebling.customer.service.CustomerService;
 @CrossOrigin
 public class CustomerController {
 
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	ControllerService controllerService;
@@ -40,7 +40,7 @@ public class CustomerController {
 
 		List<CustomerDTO> customers = customerService.getAllCustomers();
 
-		logger.info("Customers retrieved successfully from DB.");
+		LOGGER.info("Customers retrieved successfully from DB.");
 
 		return customers;
 	}
@@ -53,7 +53,7 @@ public class CustomerController {
 		controllerService.setCustomerPhone(customerDTO);
 		controllerService.setCustomerPlan(customerDTO);
 
-		logger.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
+		LOGGER.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
 
 		return customerDTO;
 	}
@@ -67,7 +67,7 @@ public class CustomerController {
 		controllerService.postNewCustomerPhone(customerDTO);
 		controllerService.postNewCustomerPlan(customerDTO);
 
-		logger.info("Customer ${" + customerDTO.getId() + "} posted successfully to DB.");
+		LOGGER.info("Customer ${" + customerDTO.getId() + "} posted successfully to DB.");
 
 		return customerDTO;
 	}
@@ -87,13 +87,13 @@ public class CustomerController {
 
 			updatedCustomer = customerService.updateCustomerById(customer_id, updateCustomer);
 
-			logger.info("Customer ${" + updatedCustomer.getId() + "} updated successfully in DB.");
+			LOGGER.info("Customer ${" + updatedCustomer.getId() + "} updated successfully in DB.");
 
 			return updatedCustomer;
 
 		} catch (CustomerException exception) {
 
-			logger.error(exception.getMessage(), exception.getCause());
+			LOGGER.error(exception.getMessage(), exception.getCause());
 
 			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
@@ -112,11 +112,11 @@ public class CustomerController {
 		try {
 			customerService.deleteCustomerById(customer_id);
 			String customerDeletedMsg = "Customer ${" + customer_id + "} deleted successfully from DB.";
-			logger.info(customerDeletedMsg);
+			LOGGER.info(customerDeletedMsg);
 			return customerDeletedMsg;
 
 		} catch (CustomerException exception) {
-			logger.error(exception.getMessage(), exception.getCause());
+			LOGGER.error(exception.getMessage(), exception.getCause());
 			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
