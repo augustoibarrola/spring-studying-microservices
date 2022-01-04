@@ -37,8 +37,9 @@ public class CustomerController {
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CustomerDTO> getAllCustomers() {
 
-		List<CustomerDTO> customers = customerService.getCustomers();
-		
+
+		List<CustomerDTO> customers = customerService.getAllCustomers();
+
 		logger.info("Customers retrieved successfully from DB.");
 
 		return customers;

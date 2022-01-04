@@ -1,5 +1,7 @@
 package ms.hotlinebling.phone.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +21,6 @@ import ms.hotlinebling.phone.service.PhoneService;
 
 @RestController
 @CrossOrigin
-@RefreshScope
 public class PhoneController 
 {
 	
@@ -30,12 +32,28 @@ public class PhoneController
 	@Autowired
 	DiscoveryClient discoveryClient;
 	
+	
+	/*
+	 * @URI http://localhost:8500/phones
+	 * @return returns phone with same id as given {phoneId} path variable 
+	 */
+	@GetMapping(value="/phones", produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<PhoneDTO> getAllPhones()
+	{
+		List<PhoneDTO> phoneDTOs = phoneService.getAllPhones();
+		
+		logger.info("Phones retrieved successfully from DB.");
+		
+		return phoneDTOs;
+		
+ 	}
+	
 	/*
 	 * @URI http://localhost:8500/phones/{phoneId}
-	 * @return phone with id same as given phoneId
+	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO getPhoneDetailsById(@PathVariable("phoneId") int phoneId)
+	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId)
 	{
 		PhoneDTO phoneDTO = phoneService.getCustomerPhone(phoneId);
 		
@@ -53,4 +71,13 @@ public class PhoneController
 		return postedPhone;
 	}
 
+	@PutMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public PhoneDTO updatePhoneById(@PathVariable String phone_id, @RequestBody PhoneDTO updatePhone)
+	{
+		PhoneDTO phoneDTO = phoneService.updatePhoneById(phone_id, updatePhone);
+		
+		return phoneDTO;
+	}
+	
+//	deletePhoneById(@PathVariable x)
 }
