@@ -27,6 +27,7 @@ import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.dto.PhoneDTO;
 import ms.hotlinebling.customer.dto.PlanDTO;
 import ms.hotlinebling.customer.exception.CustomerException;
+import ms.hotlinebling.customer.service.ControllerService;
 import ms.hotlinebling.customer.service.CustomerService;
 
 @RestController
@@ -36,10 +37,11 @@ public class CustomerController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	CustomerService customerService;
+	ControllerService controllerService;
 
 	@Autowired
-	DiscoveryClient discoveryClient;
+	CustomerService customerService;
+	
 
 	/*** http://localhost:8200/customers ***/
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,8 +59,8 @@ public class CustomerController {
 	public CustomerDTO getCustomerById(@PathVariable String customer_id) {
 		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
 
-		setCustomerPhone(customerDTO);
-		setCustomerPlan(customerDTO);
+		controllerService.setCustomerPhone(customerDTO);
+		controllerService.setCustomerPlan(customerDTO);
 
 		logger.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
 
@@ -71,8 +73,8 @@ public class CustomerController {
 
 		CustomerDTO customerDTO = customerService.postNewCustomer(postCustomer);
 
-		postNewCustomerPhone(customerDTO);
-		postNewCustomerPlan(customerDTO);
+		controllerService.postNewCustomerPhone(customerDTO);
+		controllerService.postNewCustomerPlan(customerDTO);
 
 		logger.info("Customer ${" + customerDTO.getId() + "} posted successfully to DB.");
 
@@ -130,54 +132,5 @@ public class CustomerController {
 
 	}
 
-	/*
-	 * Helper Methods
-	 */
-
-	private void setCustomerPhone(CustomerDTO customerDTO) {
-		PhoneDTO phoneDTO = new RestTemplate()
-				.getForObject(getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
-
-		customerDTO.setCurrentPhone(phoneDTO);
-	}
-
-	private void setCustomerPlan(CustomerDTO customerDTO) {
-		PlanDTO planDTO = new RestTemplate()
-				.getForObject(getPlanURI() + "/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
-
-		customerDTO.setCurrentPlan(planDTO);
-	}
 	
-	private void postNewCustomerPlan(CustomerDTO customerDTO) {
-//		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans", postCustomer.getCurrentPlan(),
-//				PlanDTO.class);
-//		customerDTO.setCurrentPlan(planDTO);
-
-	}
-
-	private void postNewCustomerPhone(CustomerDTO customerDTO) {
-//		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI() + "/phones", customerDTO.getCurrentPhone(),
-//				PhoneDTO.class);
-//		customerDTO.setCurrentPhone(phoneDTO);
-
-	}
-
-	/*
-	 * @return uri for phone microservice instance
-	 */
-	public URI getPhoneURI() {
-		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
-		ServiceInstance phoneInstance = phoneInstances.get(0);
-		return phoneInstance.getUri();
-	}
-
-	/*
-	 * @return uri for plan microservice instance
-	 */
-	public URI getPlanURI() {
-		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
-		ServiceInstance planInstance = planInstances.get(0);
-		return planInstance.getUri();
-	}
-
 }
