@@ -32,10 +32,10 @@ public class CustomerService
 		return customerDTO;
 	}
 
-	public CustomerDTO postNewCustomer(CustomerDTO postCustomer) 
+	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) 
 	{
 		
-		Customer customer = Customer.valueOf(postCustomer);
+		Customer customer = Customer.valueOf(customerDTO);
 		customerRepo.save(customer);
 		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 		
