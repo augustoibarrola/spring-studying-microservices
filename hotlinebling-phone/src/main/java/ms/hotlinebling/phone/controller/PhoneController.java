@@ -26,7 +26,7 @@ import ms.hotlinebling.phone.service.PhoneService;
 public class PhoneController 
 {
 	
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired 
 	PhoneService phoneService;
@@ -44,7 +44,7 @@ public class PhoneController
 	{
 		List<PhoneDTO> phoneDTOs = phoneService.getAllPhones();
 		
-		logger.info("Phones retrieved successfully from DB.");
+		LOGGER.info("Phones retrieved successfully from DB.");
 		
 		return phoneDTOs;
 		
@@ -88,12 +88,12 @@ public class PhoneController
 		{
 			phoneService.deletePhoneById(phone_id);
 			String phoneDeleteMsg = "Phone " + phone_id + " has been deleted.";
-			logger.info("Phone " + phone_id + " has been deleted.");
+			LOGGER.info("Phone " + phone_id + " has been deleted.");
 			return phoneDeleteMsg;
 			
 		}catch(PhoneException exception)
 		{
-			logger.error(exception.getMessage(), exception.getCause());
+			LOGGER.error(exception.getMessage(), exception.getCause());
 			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
