@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,66 +15,89 @@ import ms.hotlinebling.phone.entity.Phone;
 import ms.hotlinebling.phone.exception.PhoneException;
 import ms.hotlinebling.phone.repository.PhoneRepository;
 
-@Service
+@Service(value = "phoneService")
+@Transactional
 public class PhoneService 
 {
 	
 	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	PhoneRepository phoneRepo;
-
-	public List<PhoneDTO> getAllPhones() 
+	RepositoryCommunicator repoCaller;
+	
+	public List<PhoneDTO> getAllPhones() throws PhoneException
 	{
-		
-		List<Phone> phones = phoneRepo.findAll();
-		List<PhoneDTO> phoneDTOs  = PhoneDTO.valueOf(phones);
-		
-		return phoneDTOs;
-		
-	}
-	public PhoneDTO getPhoneById(String phoneId) 
-	{
-
-		Optional<Phone> phoneOptional = phoneRepo.findById(Integer.parseInt(phoneId));
-		
-		if(phoneOptional.isPresent()) return PhoneDTO.valueOf(phoneOptional.get());
-		
-		return null;
-	}
-
-	public PhoneDTO postNewPhone(PhoneDTO phoneDTO) 
-	{
-		Phone phone = Phone.valueOf(phoneDTO);
-		
-		phone = phoneRepo.save(phone);
-		
-		phoneDTO.setPhoneId(phone.getPhoneId());
-		
-		return phoneDTO;
-	}
-
-
-	public PhoneDTO updatePhoneById(String phone_id, PhoneDTO updatePhone) 
-	{
-		Optional<Phone> foundPhone = findPhone(phone_id);
-		if(foundPhone.isPresent())
-		{
-			Phone phone = foundPhone.get();
-			phone = Phone.updateEntity(phone, updatePhone);
-			Phone updatedPhone = phoneRepo.save(phone);
-			PhoneDTO updatedPhoneDTO = PhoneDTO.valueOf(updatedPhone);
+		try {			
+			List<Phone> phones = repoCaller.findAllPhones();
+			List<PhoneDTO> phoneDTOs  = PhoneDTO.valueOf(phones);
 			
-			return updatedPhoneDTO;
+			return phoneDTOs;
+		}catch(PhoneException exception) 
+		{
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
 		
-		return null;
+		
+	}
+	public PhoneDTO getPhoneById(String phoneId) throws PhoneException 
+	{
+		try 
+		{
+			Optional<Phone> phoneOptional = repoCaller.findPhone(phoneId);
+			if(phoneOptional.isPresent()) return PhoneDTO.valueOf(phoneOptional.get());
+			return null;
+		}catch(PhoneException exception)
+		{
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
+		
+		
+	}
+
+	public PhoneDTO postNewPhone(PhoneDTO phoneDTO) throws PhoneException 
+	{
+		try
+		{
+			Phone phone = Phone.valueOf(phoneDTO);
+			
+			phone = repoCaller.savePhone(phone);
+			
+			phoneDTO.setPhoneId(phone.getPhoneId());
+			
+			return phoneDTO;
+		}catch(PhoneException exception) 
+		{
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
+	}
+
+
+	public PhoneDTO updatePhoneById(String phone_id, PhoneDTO updatePhone) throws PhoneException 
+	{
+		try
+		{
+			Optional<Phone> foundPhone = repoCaller.findPhone(phone_id);
+			if(foundPhone.isPresent())
+			{
+				Phone phone = foundPhone.get();
+				phone = Phone.updateEntity(phone, updatePhone);
+				Phone updatedPhone = repoCaller.savePhone(phone);
+				PhoneDTO updatedPhoneDTO = PhoneDTO.valueOf(updatedPhone);
+				
+				return updatedPhoneDTO;
+			}
+			
+			return null;
+		}catch(PhoneException exception) 
+		{
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
 	}
 	
 	public void deletePhoneById(String phone_id) throws PhoneException
 	{
 		try
 		{
-			deletePhone(phone_id);
+			repoCaller.deletePhone(phone_id);
 		}catch(PhoneException exception) 
 		{
 			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
@@ -81,15 +105,6 @@ public class PhoneService
 		
 	}
 
-//
-	private Optional<Phone> findPhone(String phone_id) 
-	{
-		return phoneRepo.findById(Integer.parseInt(phone_id));
-	}
-	private void deletePhone(String phone_id) throws PhoneException
-	{
-		phoneRepo.deleteById(Integer.parseInt(phone_id));
-	}
 
 
 }

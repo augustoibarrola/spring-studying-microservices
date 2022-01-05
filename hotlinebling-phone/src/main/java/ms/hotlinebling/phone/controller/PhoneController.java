@@ -39,13 +39,21 @@ public class PhoneController
 	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phones", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<PhoneDTO> getAllPhones()
+	public List<PhoneDTO> getAllPhones() throws PhoneException
 	{
-		List<PhoneDTO> phoneDTOs = phoneService.getAllPhones();
-		
-		LOGGER.info("Phones retrieved successfully from DB.");
-		
-		return phoneDTOs;
+		try
+		{
+			List<PhoneDTO> phoneDTOs = phoneService.getAllPhones();
+			
+			LOGGER.info("Phones retrieved successfully from DB.");
+			
+			return phoneDTOs;			
+		}catch(PhoneException exception)
+		{
+			LOGGER.error(exception.getMessage(), exception.getCause());
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 		
  	}
 	
@@ -54,30 +62,55 @@ public class PhoneController
 	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId)
+	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId) throws PhoneException
 	{
-		PhoneDTO phoneDTO = phoneService.getPhoneById(phoneId);
-		
-		return phoneDTO;
+		try 
+		{
+				
+			PhoneDTO phoneDTO = phoneService.getPhoneById(phoneId);
+			
+			return phoneDTO;
+		}catch(PhoneException exception)
+		{
+			LOGGER.error(exception.getMessage(), exception.getCause());
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 	}
 	/*
 	 * @URI http://localhost:8500/phones
 	 * @return newly posted phone
 	 */
 	@PostMapping(value="/phones", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO postNewPhone(@RequestBody PhoneDTO phoneDTO)
+	public PhoneDTO postNewPhone(@RequestBody PhoneDTO phoneDTO) throws PhoneException
 	{
-		PhoneDTO postedPhone = phoneService.postNewPhone(phoneDTO);
-		
-		return postedPhone;
+		try
+		{
+			PhoneDTO postedPhone = phoneService.postNewPhone(phoneDTO);
+			
+			return postedPhone;			
+		}catch(PhoneException exception)
+		{
+			LOGGER.error(exception.getMessage(), exception.getCause());
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 	}
 
 	@PutMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO updatePhoneById(@PathVariable String phone_id, @RequestBody PhoneDTO updatePhone)
+	public PhoneDTO updatePhoneById(@PathVariable String phone_id, @RequestBody PhoneDTO updatePhone) throws PhoneException
 	{
-		PhoneDTO phoneDTO = phoneService.updatePhoneById(phone_id, updatePhone);
-		
-		return phoneDTO;
+		try
+		{
+			PhoneDTO phoneDTO = phoneService.updatePhoneById(phone_id, updatePhone);
+			
+			return phoneDTO;
+		}catch(PhoneException exception)
+		{
+			LOGGER.error(exception.getMessage(), exception.getCause());
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 	}
 	
 	@DeleteMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
