@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 import ms.hotlinebling.phone.dto.PhoneDTO;
 import ms.hotlinebling.phone.entity.Phone;
+import ms.hotlinebling.phone.exception.PhoneException;
 import ms.hotlinebling.phone.repository.PhoneRepository;
 
 @Service
@@ -61,10 +63,27 @@ public class PhoneService
 		return null;
 	}
 	
+	public void deletePhoneById(String phone_id) throws PhoneException
+	{
+		try
+		{
+			deletePhone(phone_id);
+		}catch(PhoneException exception) 
+		{
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		}
+		
+	}
+
 
 	private Optional<Phone> findPhone(String phone_id) 
 	{
 		return phoneRepo.findById(Integer.parseInt(phone_id));
 	}
+	private void deletePhone(String phone_id) throws PhoneException
+	{
+		phoneRepo.deleteById(Integer.parseInt(phone_id));
+	}
+
 
 }

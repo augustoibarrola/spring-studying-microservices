@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ms.hotlinebling.phone.dto.PhoneDTO;
+import ms.hotlinebling.phone.exception.PhoneException;
 import ms.hotlinebling.phone.service.PhoneService;
 
 @RestController
@@ -81,9 +82,20 @@ public class PhoneController
 	}
 	
 	@DeleteMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public String deletePhoneById(@PathVariable String phone_id)
+	public String deletePhoneById(@PathVariable String phone_id) throws PhoneException
 	{
-		
+		try
+		{
+			phoneService.deletePhoneById(phone_id);
+			String phoneDeleteMsg = "Phone " + phone_id + " has been deleted.";
+			logger.info("Phone " + phone_id + " has been deleted.");
+			return phoneDeleteMsg;
+			
+		}catch(PhoneException exception)
+		{
+			logger.error(exception.getMessage(), exception.getCause());
+			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 	}
-//	deletePhoneById(@PathVariable x)
 }
