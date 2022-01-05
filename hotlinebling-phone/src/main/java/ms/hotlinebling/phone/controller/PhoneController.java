@@ -45,7 +45,8 @@ public class PhoneController
 		{
 			List<PhoneDTO> phoneDTOs = phoneService.getAllPhones();
 			
-			LOGGER.info("Phones retrieved successfully from DB.");
+			LOGGER.info("\n All Phones successfully retrieved from DB.\n");
+			LOGGER.info(PhoneDTO.idsToString(phoneDTOs));
 			
 			return phoneDTOs;			
 		}catch(PhoneException exception)
@@ -58,7 +59,7 @@ public class PhoneController
  	}
 	
 	/*
-	 * @URI http://localhost:8500/phones/{phoneId}
+	 * @URI http://localhost:8500/phone/{phoneId}
 	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -66,8 +67,10 @@ public class PhoneController
 	{
 		try 
 		{
-				
 			PhoneDTO phoneDTO = phoneService.getPhoneById(phoneId);
+			
+			LOGGER.info("\n Phone successfully retrieved from DB.\n");
+			LOGGER.info(phoneDTO.toString());
 			
 			return phoneDTO;
 		}catch(PhoneException exception)
@@ -88,6 +91,9 @@ public class PhoneController
 		{
 			PhoneDTO postedPhone = phoneService.postNewPhone(phoneDTO);
 			
+			LOGGER.info("\n Phone successfully posted to DB.\n");
+			LOGGER.info(postedPhone.toString());
+			
 			return postedPhone;			
 		}catch(PhoneException exception)
 		{
@@ -104,6 +110,9 @@ public class PhoneController
 		{
 			PhoneDTO phoneDTO = phoneService.updatePhoneById(phone_id, updatePhone);
 			
+			LOGGER.info("\n Phone successfully updated in DB.\n");
+			LOGGER.info(phoneDTO.toString());
+			
 			return phoneDTO;
 		}catch(PhoneException exception)
 		{
@@ -119,8 +128,10 @@ public class PhoneController
 		try
 		{
 			phoneService.deletePhoneById(phone_id);
-			String phoneDeleteMsg = "Phone " + phone_id + " has been deleted.";
-			LOGGER.info("Phone " + phone_id + " has been deleted.");
+			String phoneDeleteMsg = "Phone with id \"+ phone_id +\" successfully deleted in DB.";
+			
+			LOGGER.info("\n Phone with id "+ phone_id +" successfully deleted in DB.\n");
+			
 			return phoneDeleteMsg;
 			
 		}catch(PhoneException exception)
@@ -131,3 +142,4 @@ public class PhoneController
 		}
 	}
 }
+//6:16pm

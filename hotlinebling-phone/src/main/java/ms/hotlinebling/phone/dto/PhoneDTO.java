@@ -29,6 +29,29 @@ public class PhoneDTO
 	public void setOperatingSystem(String operatingSystem) {
 		this.operatingSystem = operatingSystem;
 	}
+	public String toString()
+	{
+		String id = String.valueOf(getPhoneId());
+		String name = getName();
+		String OS = getOperatingSystem();
+		
+		return "\n Phone: " + 
+				"\n\t ID: " + id + 
+				"\n\t NAME: " + name + 
+				"\n\t OPERATING SYSTEM: " + OS + "\n";
+	}
+	public static String idsToString(List<PhoneDTO> phoneDTOs ) {
+		
+		StringBuffer phoneIDs = new StringBuffer("\n Phones: [ ");
+		
+		for(PhoneDTO phoneDTO : phoneDTOs)
+		{
+			phoneIDs.append(String.valueOf(phoneDTO.getPhoneId()) + ", ");
+		}
+		
+		phoneIDs.append("]\n");
+		return phoneIDs.toString();
+	}
 	public static PhoneDTO valueOf(Phone phone) {
 		PhoneDTO phoneDTO = new PhoneDTO();
 		
