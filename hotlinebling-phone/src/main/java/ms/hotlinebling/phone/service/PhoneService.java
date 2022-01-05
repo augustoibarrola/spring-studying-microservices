@@ -2,6 +2,8 @@ package ms.hotlinebling.phone.service;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,22 @@ import ms.hotlinebling.phone.repository.PhoneRepository;
 @Service
 public class PhoneService 
 {
+	
+	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	PhoneRepository phoneRepo;
 
-	public PhoneDTO getCustomerPhone(String phoneId) {
+	public List<PhoneDTO> getAllPhones() 
+	{
+		
+		List<Phone> phones = phoneRepo.findAll();
+		List<PhoneDTO> phoneDTOs  = PhoneDTO.valueOf(phones);
+		
+		return phoneDTOs;
+		
+	}
+	public PhoneDTO getPhoneById(String phoneId) 
+	{
 
 		Optional<Phone> phoneOptional = phoneRepo.findById(Integer.parseInt(phoneId));
 		
@@ -38,14 +52,6 @@ public class PhoneService
 		return phoneDTO;
 	}
 
-	public List<PhoneDTO> getAllPhones() {
-		
-		List<Phone> phones = phoneRepo.findAll();
-		List<PhoneDTO> phoneDTOs  = PhoneDTO.valueOf(phones);
-		
-		return phoneDTOs;
-		
-	}
 
 	public PhoneDTO updatePhoneById(String phone_id, PhoneDTO updatePhone) 
 	{
@@ -75,7 +81,7 @@ public class PhoneService
 		
 	}
 
-
+//
 	private Optional<Phone> findPhone(String phone_id) 
 	{
 		return phoneRepo.findById(Integer.parseInt(phone_id));

@@ -1,5 +1,7 @@
 package ms.hotlinebling.plan.entity;
 
+import java.util.Optional;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,6 +42,7 @@ public class Plan
 	public void setLocalRate(Integer localRate) {
 		this.localRate = localRate;
 	}
+	
 	public static Plan valueOf(PlanDTO newPlan) {
 		
 		Plan plan = new Plan();
@@ -50,6 +53,24 @@ public class Plan
 		
 	
 		return plan;
+	}
+	
+	public static Plan updateEntity(Plan foundPlan, PlanDTO updatePlan) {
+		
+		foundPlan.setPlanName(updatePlan.getPlanName());
+		foundPlan.setLocalRate(updatePlan.getLocalRate());
+		
+		return foundPlan;
+	}
+	
+	public static Plan updateEntity(Optional<Plan> foundOptional, PlanDTO updatePlan) {
+		
+		Plan foundPlan = foundOptional.get();
+		
+		foundPlan.setPlanName(updatePlan.getPlanName());
+		foundPlan.setLocalRate(updatePlan.getLocalRate());
+		
+		return foundPlan;
 	}
 
 }

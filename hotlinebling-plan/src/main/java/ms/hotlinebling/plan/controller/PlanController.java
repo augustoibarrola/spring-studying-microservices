@@ -10,6 +10,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,5 +84,22 @@ public class PlanController
 					exception.getCause());
 		}
 		
+	}
+	
+	@DeleteMapping(value="/plan/{plan_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String deletePlanById(@PathVariable String plan_id) throws PlanException
+	{
+		try
+		{
+			planService.deletePlanById(plan_id);
+			String phoneDeleteMsg = "Plan " + plan_id + " has been deleted.";
+			LOGGER.info("Plan " + plan_id + " has been deleted.");
+			return phoneDeleteMsg;
+		}catch(PlanException exception)
+		{
+			LOGGER.error(exception.getMessage(), exception.getCause());
+			throw new PlanException("\n\n SOMETHING WENT WRONG: \n\n" + exception.getMessage(),
+					exception.getCause());
+		}
 	}
 }

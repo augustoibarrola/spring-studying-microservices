@@ -56,7 +56,7 @@ public class PhoneController
 	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId)
 	{
-		PhoneDTO phoneDTO = phoneService.getCustomerPhone(phoneId);
+		PhoneDTO phoneDTO = phoneService.getPhoneById(phoneId);
 		
 		return phoneDTO;
 	}
