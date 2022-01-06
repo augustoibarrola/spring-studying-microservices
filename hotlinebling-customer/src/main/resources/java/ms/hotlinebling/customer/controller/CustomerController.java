@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.exception.CustomerException;
 import ms.hotlinebling.customer.service.ControllerService;
@@ -24,7 +25,7 @@ import ms.hotlinebling.customer.service.CustomerService;
 @CrossOrigin
 public class CustomerController {
 
-	Logger LOGGER = LogManager.getFormatterLogger(this.getClass());
+	
 
 	@Autowired
 	ControllerService controllerService;
