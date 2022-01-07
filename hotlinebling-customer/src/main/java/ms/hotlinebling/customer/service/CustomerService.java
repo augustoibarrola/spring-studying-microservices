@@ -1,5 +1,6 @@
 package ms.hotlinebling.customer.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +24,42 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepo;
 
-	public List<CustomerDTO> getAllCustomers() {
-		
-		List<Customer> customers = customerRepo.findAll();
-		List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
-		
-		return customerDTOs;
-	}
-	
-	public CustomerDTO getCustomerById(int customer_id) {
-		Customer customer = customerRepo.getById(customer_id);
-		CustomerDTO customerDTO = CustomerDTO.valueOf(customer);
+	public List<CustomerDTO> getAllCustomers() throws CustomerException {
+		try {
 
-		return customerDTO;
+			List<Customer> customers = findAllCustomers();
+			List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
+
+			return customerDTOs;
+		} catch (CustomerException exception) {
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		}
 	}
 
-	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) {
-
-		Customer customer = Customer.valueOf(customerDTO);
-		customerRepo.save(customer);
-		CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
-
-		return postedCustomer;
+	public CustomerDTO getCustomerById(int customer_id) throws CustomerException {
+		try {
+			Optional<Customer> foundCustomer = findCustomer(customer_id);
+			if (foundCustomer.isPresent()) {
+				CustomerDTO customerDTO = CustomerDTO.valueOf(foundCustomer);
+				return customerDTO;
+			}
+			return null;
+		} catch (CustomerException exception) {
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		}
 	}
 
+	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) throws CustomerException {
+
+		try {
+			Customer customer = postCustomer(customerDTO);
+			CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
+
+			return postedCustomer;
+		} catch (CustomerException exception) {
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		}
+	}
 
 	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException {
 		try {
@@ -75,7 +88,16 @@ public class CustomerService {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @return
+	 */
+	private List<Customer> findAllCustomers() throws CustomerException {
+		List<Customer> customers = new ArrayList<>();
+		customers = customerRepo.findAll();
+		return customers;
+	}
+
 	/**
 	 * 
 	 * @param String customer_id
@@ -84,6 +106,28 @@ public class CustomerService {
 	 */
 	private Optional<Customer> findCustomer(String customer_id) throws CustomerException {
 		return customerRepo.findById(Integer.parseInt(customer_id));
+	}
+
+	/**
+	 * 
+	 * @param customer_id
+	 * @return
+	 * @throws CustomerException
+	 */
+	private Optional<Customer> findCustomer(int customer_id) throws CustomerException {
+		return customerRepo.findById(customer_id);
+	}
+
+	/**
+	 * 
+	 * @param customerDTO
+	 * @return
+	 * @throws CustomerException
+	 */
+	private Customer postCustomer(CustomerDTO customerDTO) throws CustomerException {
+
+		Customer customer = Customer.valueOf(customerDTO);
+		return customerRepo.save(customer);
 	}
 
 	/**

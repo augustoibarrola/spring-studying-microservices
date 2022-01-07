@@ -14,7 +14,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	Optional<Customer> findById(int customer_id);
 
-	Customer getById(int customer_id);
+//	Customer getById(int customer_id);
 
 	void deleteById(int parseInt);
 }

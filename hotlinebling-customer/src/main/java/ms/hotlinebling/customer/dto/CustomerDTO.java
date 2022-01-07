@@ -2,6 +2,7 @@ package ms.hotlinebling.customer.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import ms.hotlinebling.customer.entity.Customer;
 
@@ -118,6 +119,43 @@ public class CustomerDTO
 
 	public static CustomerDTO valueOf(Customer customer)
 	{
+		CustomerDTO customerDTO = new CustomerDTO();
+		
+		customerDTO.setId(customer.getId());
+		customerDTO.setFirstName(customer.getFirstName());
+		customerDTO.setMiddleName(customer.getMiddleName());
+		customerDTO.setLastName(customer.getLastName());
+		
+		customerDTO.setAge(customer.getAge());
+		customerDTO.setPhoneNumber(customer.getPhoneNumber());
+		
+		customerDTO.seteMail(customer.geteMail());
+		customerDTO.setAddress(customer.getAddress());
+		customerDTO.setPassword(customer.getPassword());
+		customerDTO.setSsn(customer.getSsn());
+//		
+//		if(customer.getPhoneId() != 0) 
+//		{			
+//			PhoneDTO phoneDTO = new PhoneDTO();
+//			phoneDTO.setId(customer.getId());
+//			customerDTO.setCurrentPhone(phoneDTO);
+//		}
+//		
+//		if(customer.getPlanId() != 0)
+//		{
+//			
+//			PlanDTO planDTO = new PlanDTO();
+//			planDTO.setId(customer.getId());
+//			customerDTO.setCurrentPlan(planDTO);
+//		}
+
+		return customerDTO;
+	}
+	
+	public static CustomerDTO valueOf(Optional<Customer> optionalCustomer)
+	{
+		Customer customer = optionalCustomer.get();
+		
 		CustomerDTO customerDTO = new CustomerDTO();
 		
 		customerDTO.setId(customer.getId());
