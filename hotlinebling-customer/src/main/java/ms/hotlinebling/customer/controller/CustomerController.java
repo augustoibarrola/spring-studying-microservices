@@ -35,7 +35,8 @@ public class CustomerController {
 
 	/*** http://localhost:8200/customers ***/
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CustomerDTO> getAllCustomers() {
+	public List<CustomerDTO> getAllCustomers() throws CustomerException
+	{
 
 
 		List<CustomerDTO> customers = customerService.getAllCustomers();
@@ -47,7 +48,8 @@ public class CustomerController {
 
 	/*** http://localhost:8200/customer/1 ***/
 	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerById(@PathVariable String customer_id) {
+	public CustomerDTO getCustomerById(@PathVariable String customer_id) throws CustomerException
+	{
 		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
 
 		controllerService.setCustomerPhone(customerDTO);
@@ -60,7 +62,8 @@ public class CustomerController {
 
 	/*** http://localhost:8200/customers ***/
 	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) {
+	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) throws CustomerException  
+	{
 
 		CustomerDTO customerDTO = customerService.postNewCustomer(postCustomer);
 
@@ -78,8 +81,8 @@ public class CustomerController {
 	 * @throws CustomerException
 	 ***/
 	@PutMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer)
-			throws CustomerException {
+	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) throws CustomerException 
+	{
 
 		CustomerDTO updatedCustomer;
 
@@ -107,7 +110,8 @@ public class CustomerController {
 	 * @throws CustomerException
 	 ***/
 	@DeleteMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException {
+	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException 
+	{
 
 		try {
 			customerService.deleteCustomerById(customer_id);
