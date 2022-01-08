@@ -1,6 +1,5 @@
 package ms.hotlinebling.customer.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
 import ms.hotlinebling.customer.exception.CustomerException;
-import ms.hotlinebling.customer.repository.CustomerRepository;
 
 @Service(value = "customerService")
 @Transactional
@@ -22,12 +20,13 @@ public class CustomerService {
 	Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	CustomerRepository customerRepo;
+	RepositoryCommunicator repoCaller;
 
-	public List<CustomerDTO> getAllCustomers() throws CustomerException {
+	public List<CustomerDTO> getAllCustomers() throws CustomerException 
+	{
 		try {
 
-			List<Customer> customers = findAllCustomers();
+			List<Customer> customers = repoCaller.findAllCustomers();
 			List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
 
 			return customerDTOs;
@@ -36,9 +35,10 @@ public class CustomerService {
 		}
 	}
 
-	public CustomerDTO getCustomerById(int customer_id) throws CustomerException {
+	public CustomerDTO getCustomerById(int customer_id) throws CustomerException 
+	{
 		try {
-			Optional<Customer> foundCustomer = findCustomer(customer_id);
+			Optional<Customer> foundCustomer = repoCaller.findCustomer(customer_id);
 			if (foundCustomer.isPresent()) {
 				CustomerDTO customerDTO = CustomerDTO.valueOf(foundCustomer);
 				return customerDTO;
@@ -49,10 +49,11 @@ public class CustomerService {
 		}
 	}
 
-	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) throws CustomerException {
+	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) throws CustomerException 
+	{
 
 		try {
-			Customer customer = postCustomer(customerDTO);
+			Customer customer = repoCaller.postCustomer(customerDTO);
 			CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 
 			return postedCustomer;
@@ -61,13 +62,14 @@ public class CustomerService {
 		}
 	}
 
-	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException {
+	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException 
+	{
 		try {
-			Optional<Customer> foundCustomer = findCustomer(customer_id);
+			Optional<Customer> foundCustomer = repoCaller.findCustomer(customer_id);
 			if (foundCustomer.isPresent()) {
 				Customer customer = foundCustomer.get();
 				customer = Customer.updateEntity(customer, updateCustomer);
-				Customer updatedCustomer = customerRepo.save(customer);
+				Customer updatedCustomer = repoCaller.postCustomer(customer);
 				CustomerDTO updatedCustomerDTO = CustomerDTO.valueOf(updatedCustomer);
 
 				return updatedCustomerDTO;
@@ -79,63 +81,13 @@ public class CustomerService {
 		}
 	}
 
-	public void deleteCustomerById(String customer_id) throws CustomerException {
+	public void deleteCustomerById(String customer_id) throws CustomerException 
+	{
 		try {
-			deleteCustomer(customer_id);
+			repoCaller.deleteCustomer(customer_id);
 		} catch (CustomerException exception) {
 			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private List<Customer> findAllCustomers() throws CustomerException {
-		List<Customer> customers = new ArrayList<>();
-		customers = customerRepo.findAll();
-		return customers;
-	}
-
-	/**
-	 * 
-	 * @param String customer_id
-	 * @return
-	 * @throws CustomerException
-	 */
-	private Optional<Customer> findCustomer(String customer_id) throws CustomerException {
-		return customerRepo.findById(Integer.parseInt(customer_id));
-	}
-
-	/**
-	 * 
-	 * @param customer_id
-	 * @return
-	 * @throws CustomerException
-	 */
-	private Optional<Customer> findCustomer(int customer_id) throws CustomerException {
-		return customerRepo.findById(customer_id);
-	}
-
-	/**
-	 * 
-	 * @param customerDTO
-	 * @return
-	 * @throws CustomerException
-	 */
-	private Customer postCustomer(CustomerDTO customerDTO) throws CustomerException {
-
-		Customer customer = Customer.valueOf(customerDTO);
-		return customerRepo.save(customer);
-	}
-
-	/**
-	 * 
-	 * @param customer_id
-	 * @throws CustomerException
-	 */
-	private void deleteCustomer(String customer_id) throws CustomerException {
-		customerRepo.deleteById(Integer.parseInt(customer_id));
 	}
 }
