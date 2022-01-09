@@ -1,0 +1,10 @@
+enum Countries
+{
+    UNITEDSTATES,
+    ARGENTINA,
+    COLOMBIA,
+    CANADA,
+    MEXICO,
+    JAPAN,
+    UNITEDKINGDOM
+}
