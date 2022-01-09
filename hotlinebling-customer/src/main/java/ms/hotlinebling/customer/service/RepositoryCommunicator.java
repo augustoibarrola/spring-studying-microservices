@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
-import ms.hotlinebling.customer.exception.CustomerException;
+import ms.hotlinebling.customer.exception.RepoCallerException;
 import ms.hotlinebling.customer.repository.CustomerRepository;
 
 @Service(value = "repoCaller")
@@ -29,10 +29,20 @@ public class RepositoryCommunicator
 	 * 
 	 * @return
 	 */
-	public List<Customer> findAllCustomers() throws CustomerException {
-		List<Customer> customers = new ArrayList<>();
-		customers = customerRepo.findAll();
-		return customers;
+	public List<Customer> findAllCustomers() throws RepoCallerException 
+	{
+		List<Customer> customers;
+		if(customerRepo.exists(Customer)
+		{
+		    customers = ArrayList<>();
+		    customers = customerRepo.findAll();
+		    return customers;
+		}
+		else if (! customerRepo.)
+		{
+		
+		}
+		
 	}
 
 	/**
@@ -41,7 +51,8 @@ public class RepositoryCommunicator
 	 * @return
 	 * @throws CustomerException
 	 */
-	public Optional<Customer> findCustomer(String customer_id) throws CustomerException {
+	public Optional<Customer> findCustomer(String customer_id) throws RepoCallerException 
+	{
 		return customerRepo.findById(Integer.parseInt(customer_id));
 	}
 
@@ -51,7 +62,8 @@ public class RepositoryCommunicator
 	 * @return
 	 * @throws CustomerException
 	 */
-	public Optional<Customer> findCustomer(int customer_id) throws CustomerException {
+	public Optional<Customer> findCustomer(int customer_id) throws RepoCallerException 
+	{
 		return customerRepo.findById(customer_id);
 	}
 
@@ -61,7 +73,7 @@ public class RepositoryCommunicator
 	 * @return
 	 * @throws CustomerException
 	 */
-	public Customer postCustomer(Customer customer) throws CustomerException 
+	public Customer postCustomer(Customer customer) throws RepoCallerException 
 	{
 		return customerRepo.save(customer);
 	}
@@ -71,7 +83,7 @@ public class RepositoryCommunicator
 	 * @return
 	 * @throws CustomerException
 	 */
-	public Customer postCustomer(CustomerDTO customerDTO) throws CustomerException 
+	public Customer postCustomer(CustomerDTO customerDTO) throws RepoCallerException 
 	{
 
 		Customer customer = Customer.valueOf(customerDTO);
@@ -84,7 +96,7 @@ public class RepositoryCommunicator
 	 * @param customer_id
 	 * @throws CustomerException
 	 */
-	public void deleteCustomer(String customer_id) throws CustomerException {
+	public void deleteCustomer(String customer_id) throws RepoCallerException {
 		customerRepo.deleteById(Integer.parseInt(customer_id));
 	}
 }
