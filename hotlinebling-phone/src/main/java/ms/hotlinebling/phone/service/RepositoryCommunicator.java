@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ms.hotlinebling.phone.entity.Phone;
-import ms.hotlinebling.phone.exception.PhoneException;
+import ms.hotlinebling.phone.exception.RepoCallerException;
 import ms.hotlinebling.phone.repository.PhoneRepository;
 
 @Service(value = "repoCaller")
@@ -22,22 +22,22 @@ final class RepositoryCommunicator
 	@Autowired
 	PhoneRepository phoneRepo;
 
-	List<Phone> findAllPhones() throws PhoneException
+	List<Phone> findAllPhones() throws RepoCallerException
 	{
 		return phoneRepo.findAll();
 	}
 	
-	Optional<Phone> findPhone(String phone_id) throws PhoneException 
+	Optional<Phone> findPhone(String phone_id) throws RepoCallerException 
 	{
 		return phoneRepo.findById(Integer.parseInt(phone_id));
 	}
 	
-	void deletePhone(String phone_id) throws PhoneException
+	void deletePhone(String phone_id) throws RepoCallerException
 	{
 		phoneRepo.deleteById(Integer.parseInt(phone_id));
 	}
 	
-	Phone savePhone(Phone phone) throws PhoneException 
+	Phone savePhone(Phone phone) throws RepoCallerException 
 	{
 		
 		return phoneRepo.save(phone); 
