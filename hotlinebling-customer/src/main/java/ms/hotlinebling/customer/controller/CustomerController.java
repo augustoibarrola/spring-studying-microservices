@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.exception.CustomerException;
+import ms.hotlinebling.customer.exception.ServiceDiscoveryException;
 import ms.hotlinebling.customer.service.ControllerService;
 import ms.hotlinebling.customer.service.CustomerService;
 
@@ -46,9 +47,10 @@ public class CustomerController {
 		return customers;
 	}
 
-	/*** http://localhost:8200/customer/1 ***/
+	/*** http://localhost:8200/customer/1 
+	 * @throws ServiceDiscoveryException ***/
 	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerById(@PathVariable String customer_id) throws CustomerException
+	public CustomerDTO getCustomerById(@PathVariable String customer_id) throws CustomerException, ServiceDiscoveryException
 	{
 		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
 
@@ -62,7 +64,7 @@ public class CustomerController {
 
 	/*** http://localhost:8200/customers ***/
 	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) throws CustomerException  
+	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) throws CustomerException, ServiceDiscoveryException
 	{
 
 		CustomerDTO customerDTO = customerService.postNewCustomer(postCustomer);
