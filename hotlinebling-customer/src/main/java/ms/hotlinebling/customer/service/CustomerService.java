@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
 import ms.hotlinebling.customer.exception.CustomerException;
+import ms.hotlinebling.customer.exception.RepoCallerException;
 
 @Service(value = "customerService")
 @Transactional
@@ -22,7 +23,7 @@ public class CustomerService {
 	@Autowired
 	RepositoryCommunicator repoCaller;
 
-	public List<CustomerDTO> getAllCustomers() throws CustomerException 
+	public List<CustomerDTO> getAllCustomers() throws CustomerException, RepoCallerException 
 	{
 		try {
 
@@ -30,12 +31,12 @@ public class CustomerService {
 			List<CustomerDTO> customerDTOs = CustomerDTO.valueOf(customers);
 
 			return customerDTOs;
-		} catch (CustomerException exception) {
-			throw new CustomerException(exception.getMessage(), exception.getCause());
-		}
+		}catch (RepoCallerException exception) {
+			throw new RepoCallerException(exception.getMessage(), exception.getCause());
+		} 
 	}
 
-	public CustomerDTO getCustomerById(int customer_id) throws CustomerException 
+	public CustomerDTO getCustomerById(int customer_id) throws CustomerException, RepoCallerException 
 	{
 		try {
 			Optional<Customer> foundCustomer = repoCaller.findCustomer(customer_id);
@@ -44,12 +45,12 @@ public class CustomerService {
 				return customerDTO;
 			}
 			return null;
-		} catch (CustomerException exception) {
+		} catch (RepoCallerException exception) {
 			throw new CustomerException(exception.getMessage(), exception.getCause());
 		}
 	}
 
-	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) throws CustomerException 
+	public CustomerDTO postNewCustomer(CustomerDTO customerDTO) throws CustomerException, RepoCallerException
 	{
 
 		try {
@@ -57,12 +58,12 @@ public class CustomerService {
 			CustomerDTO postedCustomer = CustomerDTO.valueOf(customer);
 
 			return postedCustomer;
-		} catch (CustomerException exception) {
+		} catch (RepoCallerException exception) {
 			throw new CustomerException(exception.getMessage(), exception.getCause());
 		}
 	}
 
-	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException 
+	public CustomerDTO updateCustomerById(String customer_id, CustomerDTO updateCustomer) throws CustomerException, RepoCallerException 
 	{
 		try {
 			Optional<Customer> foundCustomer = repoCaller.findCustomer(customer_id);
@@ -76,7 +77,7 @@ public class CustomerService {
 			}
 
 			return null;
-		} catch (CustomerException exception) {
+		} catch (RepoCallerException exception) {
 			throw new CustomerException(exception.getMessage(), exception.getCause());
 		}
 	}
@@ -85,7 +86,7 @@ public class CustomerService {
 	{
 		try {
 			repoCaller.deleteCustomer(customer_id);
-		} catch (CustomerException exception) {
+		} catch (RepoCallerException exception) {
 			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}

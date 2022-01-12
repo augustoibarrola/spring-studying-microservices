@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.exception.CustomerException;
+import ms.hotlinebling.customer.exception.RepoCallerException;
 import ms.hotlinebling.customer.exception.ServiceDiscoveryException;
 import ms.hotlinebling.customer.service.ControllerService;
 import ms.hotlinebling.customer.service.CustomerService;
@@ -34,37 +35,74 @@ public class CustomerController {
 	CustomerService customerService;
 	
 
-	/*** http://localhost:8200/customers ***/
+	/*** http://localhost:8200/customers 
+	 * @throws CustomerException 
+	 * @throws RepoCallerException ***/
 	@GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CustomerDTO> getAllCustomers() throws CustomerException
+	public List<CustomerDTO> getAllCustomers() throws CustomerException, RepoCallerException
 	{
 
+		try 
+		{
+			List<CustomerDTO> customers = customerService.getAllCustomers();
+			
+			LOGGER.info("Customers retrieved successfully from DB.");
+			
+			return customers;			
+		}
+		catch(CustomerException exception)
+		{
+			throw new CustomerException(exception.getMessage(), exception.getCause());
+		} catch (RepoCallerException exception) {
 
-		List<CustomerDTO> customers = customerService.getAllCustomers();
+			throw new RepoCallerException(exception.getMessage(), exception.getCause());
+		}
 
-		LOGGER.info("Customers retrieved successfully from DB.");
-
-		return customers;
 	}
 
 	/*** http://localhost:8200/customer/1 
-	 * @throws ServiceDiscoveryException ***/
+	 * @throws CustomerException 
+	 * @throws RepoCallerException 
+	 * @throws ServiceDiscoveryException 
+	 * @throws  ***/
 	@GetMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO getCustomerById(@PathVariable String customer_id) throws CustomerException, ServiceDiscoveryException
+	public CustomerDTO getCustomerById(@PathVariable String customer_id) throws CustomerException, RepoCallerException, ServiceDiscoveryException  
 	{
-		CustomerDTO customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
+		try 
+		{
+			CustomerDTO customerDTO;
+			customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
+			controllerService.setCustomerPhone(customerDTO);
+			controllerService.setCustomerPlan(customerDTO);
+			
+			LOGGER.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
+			
+			return customerDTO;
 
-		controllerService.setCustomerPhone(customerDTO);
-		controllerService.setCustomerPlan(customerDTO);
+		} 
+			catch (CustomerException exception) 
+			{
+				LOGGER.error("CustomerException Thrown : \n" + exception.getMessage());
+				throw new CustomerException(exception.getMessage(), exception.getCause());	
+			} 
+			catch (RepoCallerException exception) 
+			{
+				LOGGER.error("RepoCallerException Thrown : \n" + exception.getMessage());
+				throw new RepoCallerException(exception.getMessage(), exception.getCause());
+			} 
+			catch (ServiceDiscoveryException exception) 
+			{
+				LOGGER.error("ServiceDiscoveryException Thrown : \n" + exception.getMessage());
+				throw new ServiceDiscoveryException(exception.getMessage(), exception.getCause());
+			} 
 
-		LOGGER.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
 
-		return customerDTO;
 	}
 
-	/*** http://localhost:8200/customers ***/
+	/*** http://localhost:8200/customers 
+	 * @throws RepoCallerException ***/
 	@PostMapping(value = "/customers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) throws CustomerException, ServiceDiscoveryException
+	public CustomerDTO postNewCustomer(@RequestBody CustomerDTO postCustomer) throws CustomerException, RepoCallerException, ServiceDiscoveryException
 	{
 
 		CustomerDTO customerDTO = customerService.postNewCustomer(postCustomer);
@@ -83,7 +121,7 @@ public class CustomerController {
 	 * @throws CustomerException
 	 ***/
 	@PutMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) throws CustomerException 
+	public CustomerDTO updateCustomerById(@PathVariable String customer_id, @RequestBody CustomerDTO updateCustomer) throws CustomerException, RepoCallerException, ServiceDiscoveryException 
 	{
 
 		CustomerDTO updatedCustomer;
@@ -96,13 +134,14 @@ public class CustomerController {
 
 			return updatedCustomer;
 
-		} catch (CustomerException exception) {
-
-			LOGGER.error(exception.getMessage(), exception.getCause());
-
-			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
-					exception.getCause());
-		}
+			}catch (CustomerException exception) 
+			{
+				throw new CustomerException(exception.getMessage(), exception.getCause());	
+			} 
+			catch (RepoCallerException exception) 
+			{
+				throw new RepoCallerException(exception.getMessage(), exception.getCause());
+			} 
 
 	}
 
@@ -112,7 +151,7 @@ public class CustomerController {
 	 * @throws CustomerException
 	 ***/
 	@DeleteMapping(value = "/customer/{customer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException 
+	public String deleteCustomerById(@PathVariable String customer_id) throws CustomerException, RepoCallerException, ServiceDiscoveryException 
 	{
 
 		try {
@@ -121,11 +160,11 @@ public class CustomerController {
 			LOGGER.info(customerDeletedMsg);
 			return customerDeletedMsg;
 
-		} catch (CustomerException exception) {
-			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new CustomerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
-					exception.getCause());
 		}
+		catch (CustomerException exception) 
+		{
+			throw new CustomerException(exception.getMessage(), exception.getCause());	
+		} 
 
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.entity.Customer;
+import ms.hotlinebling.customer.exception.CustomerException;
 import ms.hotlinebling.customer.exception.RepoCallerException;
 import ms.hotlinebling.customer.repository.CustomerRepository;
 
@@ -31,18 +32,20 @@ public class RepositoryCommunicator
 	 */
 	public List<Customer> findAllCustomers() throws RepoCallerException 
 	{
-		List<Customer> customers;
-		if(customerRepo.exists(Customer)
-		{
-		    customers = ArrayList<>();
-		    customers = customerRepo.findAll();
-		    return customers;
-		}
-		else if (! customerRepo.)
-		{
-		
-		}
-		
+
+			List<Customer> customers;
+			if( customerRepo.count() != 0 )
+			{
+				customers = new ArrayList<>();
+				customers = customerRepo.findAll();
+				return customers;
+			}
+			else if (customerRepo.count() == 0)
+			{
+				throw new RepoCallerException("NO CUSTOMERS FOUND IN DB");
+			}
+			return null;
+
 	}
 
 	/**

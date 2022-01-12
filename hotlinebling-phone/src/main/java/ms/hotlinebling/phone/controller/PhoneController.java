@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ms.hotlinebling.phone.dto.PhoneDTO;
 import ms.hotlinebling.phone.exception.PhoneException;
+import ms.hotlinebling.phone.exception.RepoCallerException;
 import ms.hotlinebling.phone.service.PhoneService;
 
 @RestController
@@ -39,7 +40,7 @@ public class PhoneController
 	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phones", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<PhoneDTO> getAllPhones() throws PhoneException
+	public List<PhoneDTO> getAllPhones() throws RepoCallerException
 	{
 		try
 		{
@@ -49,10 +50,10 @@ public class PhoneController
 			LOGGER.info(PhoneDTO.idsToString(phoneDTOs));
 			
 			return phoneDTOs;			
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
 			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
 		
@@ -63,7 +64,7 @@ public class PhoneController
 	 * @return returns phone with same id as given {phoneId} path variable 
 	 */
 	@GetMapping(value="/phone/{phoneId}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId) throws PhoneException
+	public PhoneDTO getPhoneById(@PathVariable("phoneId") String phoneId) throws RepoCallerException
 	{
 		try 
 		{
@@ -73,10 +74,10 @@ public class PhoneController
 			LOGGER.info(phoneDTO.toString());
 			
 			return phoneDTO;
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
 			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
 	}
@@ -85,7 +86,7 @@ public class PhoneController
 	 * @return newly posted phone
 	 */
 	@PostMapping(value="/phones", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO postNewPhone(@RequestBody PhoneDTO phoneDTO) throws PhoneException
+	public PhoneDTO postNewPhone(@RequestBody PhoneDTO phoneDTO) throws RepoCallerException
 	{
 		try
 		{
@@ -95,16 +96,16 @@ public class PhoneController
 			LOGGER.info(postedPhone.toString());
 			
 			return postedPhone;			
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
 			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
 	}
 
 	@PutMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public PhoneDTO updatePhoneById(@PathVariable String phone_id, @RequestBody PhoneDTO updatePhone) throws PhoneException
+	public PhoneDTO updatePhoneById(@PathVariable String phone_id, @RequestBody PhoneDTO updatePhone) throws RepoCallerException
 	{
 		try
 		{
@@ -114,16 +115,16 @@ public class PhoneController
 			LOGGER.info(phoneDTO.toString());
 			
 			return phoneDTO;
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
 			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
 	}
 	
 	@DeleteMapping(value="/phone/{phone_id}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public String deletePhoneById(@PathVariable String phone_id) throws PhoneException
+	public String deletePhoneById(@PathVariable String phone_id) throws RepoCallerException
 	{
 		try
 		{
@@ -134,10 +135,10 @@ public class PhoneController
 			
 			return phoneDeleteMsg;
 			
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
 			LOGGER.error(exception.getMessage(), exception.getCause());
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(),
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(),
 					exception.getCause());
 		}
 	}
