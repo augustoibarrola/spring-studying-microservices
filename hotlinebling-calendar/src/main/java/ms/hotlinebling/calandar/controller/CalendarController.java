@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ms.hotlinebling.calandar.dto.CalendarDTO;
+import ms.hotlinebling.calandar.exception.CalendarException;
+import ms.hotlinebling.calandar.exception.RepoCallerException;
 import ms.hotlinebling.calandar.service.CalendarService;
 
 @RestController
 @CrossOrigin
 @RefreshScope
-public class CalandarController 
+public class CalendarController 
 {
 
 	@Autowired
@@ -35,8 +37,22 @@ public class CalandarController
 	}
 	
 //	@PostMapping(value="/calendar", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public CalendarDTO
-	
+//	public CalendarDTO postNewCalendar(@RequestBody CalendarDTO newCalendar) throws CalendarException, RepoCallerException
+//	{
+//		try
+//		{
+//		    
+//		}
+//        		catch(CalendarException exception)
+//        		{
+//        		    throw new CalendarException(exception.getMessage(), exception.getCause());
+//        		}
+//        		catch(RepoCallerException exception)
+//        		{
+//        		    throw new RepoCallerException(exception.getMessage(), exception.getCause());
+//        		}
+//	}
+//	
 	/*** http://localhost:8700/events ***/
 	/*
 		{
