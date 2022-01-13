@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import ms.hotlinebling.calandar.dto.CalandarDTO;
+import ms.hotlinebling.calandar.dto.CalendarDTO;
 
 @Entity
 @Table(name = "Event")
-public class Calandar 
+public class Calendar 
 {
 	
 	@Id
@@ -74,17 +74,17 @@ public class Calandar
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
-	public static Calandar valueOf(CalandarDTO postEvent) {
+	public static Calendar valueOf(CalendarDTO postEvent) {
 
-		Calandar calandar = new Calandar();
-		calandar.setCustomerId(1);
-		calandar.setDate(postEvent.getDate());
-		calandar.setDatetime(postEvent.getDatetime());
-		calandar.setDescription(postEvent.getDescription());
-		calandar.setId(postEvent.getId());
-		calandar.setTime(postEvent.getTime());
-		calandar.setYear(postEvent.getYear());
+		Calendar calendar = new Calendar();
+		calendar.setCustomerId(1);
+		calendar.setDate(postEvent.getDate());
+		calendar.setDatetime(postEvent.getDatetime());
+		calendar.setDescription(postEvent.getDescription());
+		calendar.setId(postEvent.getId());
+		calendar.setTime(postEvent.getTime());
+		calendar.setYear(postEvent.getYear());
 		
-		return calandar;
+		return calendar;
 	}
 }

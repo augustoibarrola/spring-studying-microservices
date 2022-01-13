@@ -2,12 +2,12 @@ package ms.hotlinebling.calandar.dto;
 
 import java.util.Date;
 
-import ms.hotlinebling.calandar.entity.Calandar;
-public class CalandarDTO 
+import ms.hotlinebling.calandar.entity.Calendar;
+public class CalendarDTO 
 {
 	
 	private int id;
-	private CustomerDTO customerDTO;
+//	private CustomerDTO customerDTO;
 	private String description;
 	private String year;
 	private String date;
@@ -20,12 +20,7 @@ public class CalandarDTO
 	public void setId(int id) {
 		this.id = id;
 	}
-	public CustomerDTO getCustomerDTO() {
-		return customerDTO;
-	}
-	public void setCustomerDTO(CustomerDTO customerDTO) {
-		this.customerDTO = customerDTO;
-	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -57,24 +52,24 @@ public class CalandarDTO
 		this.datetime = datetime;
 	}
 	
-	public static CalandarDTO valueOf(Calandar calandar) {
+	public static CalendarDTO valueOf(Calendar calendar) {
 		
-		CalandarDTO calandarDTO = new CalandarDTO();
+		CalendarDTO calendarDTO = new CalendarDTO();
 		
-		calandarDTO.setId(calandar.getId());
-		calandarDTO.setDescription(calandar.getDescription());
-		calandarDTO.setYear(calandar.getYear());
-		calandarDTO.setDate(calandar.getDate());
-		calandarDTO.setTime(calandar.getTime());
-		calandarDTO.setDatetime(calandar.getDatetime());
+		calendarDTO.setId(calendar.getId());
+		calendarDTO.setDescription(calendar.getDescription());
+		calendarDTO.setYear(calendar.getYear());
+		calendarDTO.setDate(calendar.getDate());
+		calendarDTO.setTime(calendar.getTime());
+		calendarDTO.setDatetime(calendar.getDatetime());
 		
-		CustomerDTO customerDTO = new CustomerDTO();
-		customerDTO.setPhoneNumber(calandar.getCustomerId());
+//		CustomerDTO customerDTO = new CustomerDTO();
+//		customerDTO.setPhoneNumber(calandar.getCustomerId());
+//		
+//		calandarDTO.setCustomerDTO(customerDTO);
 		
-		calandarDTO.setCustomerDTO(customerDTO);
 		
-		
-		return calandarDTO;
+		return calendarDTO;
 	}
 
 }

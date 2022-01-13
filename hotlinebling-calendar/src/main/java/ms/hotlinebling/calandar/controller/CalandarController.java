@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ms.hotlinebling.calandar.dto.CalandarDTO;
-import ms.hotlinebling.calandar.service.CalandarService;
+import ms.hotlinebling.calandar.dto.CalendarDTO;
+import ms.hotlinebling.calandar.service.CalendarService;
 
 @RestController
 @CrossOrigin
@@ -21,34 +21,32 @@ public class CalandarController
 {
 
 	@Autowired
-	CalandarService calandarService;
+	CalendarService calendarService;
 	
 	@Autowired
 	DiscoveryClient discoveryClient; 
 	
 	@GetMapping(value = "/event/{event_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CalandarDTO getEventDetailsById(@PathVariable("event_id") int eventId)
+	public CalendarDTO getEventDetailsById(@PathVariable("event_id") int eventId)
 	{
-		CalandarDTO calandarDTO = calandarService.getCalandarDetails(eventId);
+		CalendarDTO calendarDTO = calendarService.getCalandarDetails(eventId);
 		
-		return calandarDTO;
+		return calendarDTO;
 	}
+	
+//	@PostMapping(value="/calendar", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+//	public CalendarDTO
 	
 	/*** http://localhost:8700/events ***/
 	/*
 		{
-		    "customerId": 0,
-		    "description": "",
-		    "year": "",
-		    "date": "YYYY-MM-DD", 
-		    "time": "HH:MM:SS", 
-		    "datetime": "YYYY-MM-DDTHH:MM:SS"
+
 		}
 	 */
 	@PostMapping(value = "/events", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public CalandarDTO postNewEvent(@RequestBody CalandarDTO postEvent)
+	public CalendarDTO postNewEvent(@RequestBody CalendarDTO postEvent)
 	{
-		CalandarDTO postedEvent = calandarService.postNewEvent(postEvent);
+		CalendarDTO postedEvent = calendarService.postNewEvent(postEvent);
 		
 		return postedEvent;
 	}
