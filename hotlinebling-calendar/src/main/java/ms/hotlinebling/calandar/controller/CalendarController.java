@@ -1,5 +1,7 @@
 package ms.hotlinebling.calandar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,7 +20,6 @@ import ms.hotlinebling.calandar.service.CalendarService;
 
 @RestController
 @CrossOrigin
-@RefreshScope
 public class CalendarController 
 {
 
@@ -28,13 +29,32 @@ public class CalendarController
 	@Autowired
 	DiscoveryClient discoveryClient; 
 	
-	@GetMapping(value = "/event/{event_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public CalendarDTO getEventDetailsById(@PathVariable("event_id") int eventId)
+	// http://localhost:8700/events 
+	@GetMapping(value = "/calendars", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<CalendarDTO> getAllCalendars()
 	{
-		CalendarDTO calendarDTO = calendarService.getCalandarDetails(eventId);
+		List<CalendarDTO> calendars = calendarService.getAllCalendars();
 		
-		return calendarDTO;
+		return calendars;
 	}
+	// http://localhost:8700/calendars 
+	@PostMapping(value = "/calendars", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CalendarDTO postNewCalendar(@RequestBody CalendarDTO postCalendar)
+	{
+		CalendarDTO calendar = calendarService.postNewCalendar(postCalendar);
+		
+		return calendar;
+	}
+	
+	
+	
+//	@GetMapping(value = "/calendar/events", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public List<EventDTO> getAllCalendarEvents(@PathVariable("calendar_id") int eventId)
+//	{
+//		CalendarDTO calendarDTO = calendarService.getCalandarDetails(eventId);
+//		
+//		return calendarDTO;
+//	}
 	
 //	@PostMapping(value="/calendar", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 //	public CalendarDTO postNewCalendar(@RequestBody CalendarDTO newCalendar) throws CalendarException, RepoCallerException
