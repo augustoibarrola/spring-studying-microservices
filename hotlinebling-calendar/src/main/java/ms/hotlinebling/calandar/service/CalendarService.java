@@ -21,20 +21,15 @@ public class CalendarService
 	RepositoryCommunicator repoCaller;
 	
 	public List<CalendarDTO> getAllCalendars() {
-	    List<Calendar> calendars = repoCaller.findAllCalendars();
-	    return null;
+	    List<CalendarDTO> calendars = repoCaller.findAllCalendars();
+	    return calendars;
 	}
 	
 	public CalendarDTO postNewCalendar(CalendarDTO calendarDTO) 
 	{
-	    Calendar calendar = repoCaller.postCalendar(calendarDTO);
-	    CalendarDTO postedCalendar = CalendarDTO.valueOf(calendar);
+	    CalendarDTO postedCalendar = repoCaller.postCalendar(calendarDTO);
 	    return postedCalendar;
 	}
-	
-	
-	
-	
 	
 	
 	

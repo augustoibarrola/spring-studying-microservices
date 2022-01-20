@@ -1,9 +1,7 @@
 package ms.hotlinebling.calandar.dto;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 import ms.hotlinebling.calandar.entity.Calendar;
 public class CalendarDTO 
@@ -12,27 +10,32 @@ public class CalendarDTO
 	private Integer calendarOwner;
 	
 	
-	public String getName() {
+	public String getName() 
+	{
 	    return name;
 	}
 
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 	    this.name = name;
 	}
 
 
-	public Integer getCalendarOwner() {
+	public Integer getCalendarOwner() 
+	{
 	    return calendarOwner;
 	}
 
 
-	public void setCalendarOwner(Integer calendarOwner) {
+	public void setCalendarOwner(Integer calendarOwner) 
+	{
 	    this.calendarOwner = calendarOwner;
 	}
 
 
-	public static CalendarDTO valueOf(Calendar calendar) {
+	public static CalendarDTO valueOf(Calendar calendar) 
+	{
 		
 		CalendarDTO calendarDTO = new CalendarDTO();
 		
@@ -40,6 +43,20 @@ public class CalendarDTO
 		calendarDTO.setCalendarOwner(calendar.getCalendarOwner());
 		
 		return calendarDTO;
+	}
+
+
+	public static List<CalendarDTO> valueOf(List<Calendar> calendars) 
+	{
+	    CalendarDTO calDTO;
+	    List<CalendarDTO> calendarDTOs = new ArrayList<>();
+	    for(Calendar cal : calendars)
+	    {
+		calDTO = CalendarDTO.valueOf(cal);
+		calendarDTOs.add(calDTO);
+	    }
+	    
+	    return calendarDTOs;
 	}
 
 }

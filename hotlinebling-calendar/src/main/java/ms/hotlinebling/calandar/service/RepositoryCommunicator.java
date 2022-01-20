@@ -22,33 +22,38 @@ public class RepositoryCommunicator
     @Autowired
     CalendarRepository calendarRepo;
     
-    public List<Calendar> findAllCalendars()  
+    public List<CalendarDTO> findAllCalendars()  
     {
-
-			List<Calendar> calendars;
-			if( calendarRepo.count() != 0 )
-			{
-			    calendars = new ArrayList<>();
-			    calendars = calendarRepo.findAll();
-				return calendars;
-			}
-			else if (calendarRepo.count() == 0)
-			{
+	List<Calendar> calendars;
+	if( calendarRepo.count() != 0 )
+	{
+	    calendars = new ArrayList<>();
+	    calendars = calendarRepo.findAll();
+	    List<CalendarDTO> calendarDTOs = CalendarDTO.valueOf(calendars);
+	    return calendarDTOs;
+	}
+	else if (calendarRepo.count() == 0)
+	{
 //				throw new RepoCallerException("NO CALENDARS FOUND IN DB");
-			}
-			return null;
+	}
+	return null;
 
     }
 
 
-    public Calendar postCalendar(CalendarDTO calendarDTO) 
+    public CalendarDTO postCalendar(CalendarDTO calendarDTO) 
     {
 	Calendar newCal = Calendar.valueOf(calendarDTO);
-	return calendarRepo.save(newCal);
+	newCal = calendarRepo.save(newCal);
+	calendarDTO = CalendarDTO.valueOf(newCal);
+	return calendarDTO;
     }
-    public Calendar postCalendar(Calendar calendar) 
+    
+    public CalendarDTO postCalendar(Calendar calendar) 
     {
-	return calendarRepo.save(calendar);
+	calendar = calendarRepo.save(calendar);
+	CalendarDTO postedCalendar = CalendarDTO.valueOf(calendar);
+	return postedCalendar;
     }
 
 }
