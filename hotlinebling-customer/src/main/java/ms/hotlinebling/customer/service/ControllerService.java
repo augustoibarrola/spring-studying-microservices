@@ -29,18 +29,25 @@ public class ControllerService
 
 	public void setCustomerPhone(CustomerDTO customerDTO) throws ServiceDiscoveryException
 	{
+	    if(customerDTO.getCurrentPhone() != null)
+	    {		
 		PhoneDTO phoneDTO = new RestTemplate()
 				.getForObject(getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
 
 		customerDTO.setCurrentPhone(phoneDTO);
+	    }
 	}
 
 	public void setCustomerPlan(CustomerDTO customerDTO) throws ServiceDiscoveryException 
 	{
+	    if(customerDTO.getCurrentPlan() != null)
+	    {
+		
 		PlanDTO planDTO = new RestTemplate()
 				.getForObject(getPlanURI() + "/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
 
 		customerDTO.setCurrentPlan(planDTO);
+	    }
 	}
 	
 	public void postNewCustomerPlan(CustomerDTO customerDTO) throws ServiceDiscoveryException 

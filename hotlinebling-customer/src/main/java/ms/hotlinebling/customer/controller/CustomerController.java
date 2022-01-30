@@ -72,8 +72,8 @@ public class CustomerController {
 		{
 			CustomerDTO customerDTO;
 			customerDTO = customerService.getCustomerById(Integer.parseInt(customer_id));
-			controllerService.setCustomerPhone(customerDTO);
-			controllerService.setCustomerPlan(customerDTO);
+			if(customerDTO.getCurrentPhone()!=null)controllerService.setCustomerPhone(customerDTO);
+			if(customerDTO.getCurrentPlan()!=null)controllerService.setCustomerPlan(customerDTO);
 			
 			LOGGER.info("Customer ${" + customerDTO.getId() + "} retrieved successfully from DB.");
 			
