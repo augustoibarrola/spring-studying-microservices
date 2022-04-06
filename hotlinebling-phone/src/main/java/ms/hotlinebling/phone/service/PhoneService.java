@@ -13,6 +13,7 @@ import java.util.List;
 import ms.hotlinebling.phone.dto.PhoneDTO;
 import ms.hotlinebling.phone.entity.Phone;
 import ms.hotlinebling.phone.exception.PhoneException;
+import ms.hotlinebling.phone.exception.RepoCallerException;
 import ms.hotlinebling.phone.repository.PhoneRepository;
 
 @Service(value = "phoneService")
@@ -24,36 +25,36 @@ public class PhoneService
 	@Autowired
 	RepositoryCommunicator repoCaller;
 	
-	public List<PhoneDTO> getAllPhones() throws PhoneException
+	public List<PhoneDTO> getAllPhones() throws RepoCallerException
 	{
 		try {			
 			List<Phone> phones = repoCaller.findAllPhones();
 			List<PhoneDTO> phoneDTOs  = PhoneDTO.valueOf(phones);
 			
 			return phoneDTOs;
-		}catch(PhoneException exception) 
+		}catch(RepoCallerException exception) 
 		{
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
-		}
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+		} 
 		
 		
 	}
-	public PhoneDTO getPhoneById(String phoneId) throws PhoneException 
+	public PhoneDTO getPhoneById(String phoneId) throws RepoCallerException 
 	{
 		try 
 		{
 			Optional<Phone> phoneOptional = repoCaller.findPhone(phoneId);
 			if(phoneOptional.isPresent()) return PhoneDTO.valueOf(phoneOptional.get());
 			return null;
-		}catch(PhoneException exception)
+		}catch(RepoCallerException exception)
 		{
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
 		
 		
 	}
 
-	public PhoneDTO postNewPhone(PhoneDTO phoneDTO) throws PhoneException 
+	public PhoneDTO postNewPhone(PhoneDTO phoneDTO) throws RepoCallerException 
 	{
 		try
 		{
@@ -64,14 +65,14 @@ public class PhoneService
 			phoneDTO.setPhoneId(phone.getPhoneId());
 			
 			return phoneDTO;
-		}catch(PhoneException exception) 
+		}catch(RepoCallerException exception) 
 		{
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
 	}
 
 
-	public PhoneDTO updatePhoneById(String phone_id, PhoneDTO updatePhone) throws PhoneException 
+	public PhoneDTO updatePhoneById(String phone_id, PhoneDTO updatePhone) throws RepoCallerException 
 	{
 		try
 		{
@@ -87,20 +88,20 @@ public class PhoneService
 			}
 			
 			return null;
-		}catch(PhoneException exception) 
+		}catch(RepoCallerException exception) 
 		{
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
 	}
 	
-	public void deletePhoneById(String phone_id) throws PhoneException
+	public void deletePhoneById(String phone_id) throws RepoCallerException
 	{
 		try
 		{
 			repoCaller.deletePhone(phone_id);
-		}catch(PhoneException exception) 
+		}catch(RepoCallerException exception) 
 		{
-			throw new PhoneException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
+			throw new RepoCallerException("\n\n Something went wrong: \n\n" + exception.getMessage(), exception.getCause());
 		}
 		
 	}

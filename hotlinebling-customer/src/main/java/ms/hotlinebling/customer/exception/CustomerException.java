@@ -1,5 +1,6 @@
 package ms.hotlinebling.customer.exception;
 
+@SuppressWarnings("serial")
 public class CustomerException extends Exception 
 {
 	public CustomerException() {};

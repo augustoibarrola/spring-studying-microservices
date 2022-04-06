@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import ms.hotlinebling.customer.dto.CustomerDTO;
 import ms.hotlinebling.customer.dto.PhoneDTO;
 import ms.hotlinebling.customer.dto.PlanDTO;
+import ms.hotlinebling.customer.exception.ServiceDiscoveryException;
 
 @Service(value="controllerService")
 @Transactional
@@ -26,38 +27,50 @@ public class ControllerService
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public void setCustomerPhone(CustomerDTO customerDTO) {
+	public void setCustomerPhone(CustomerDTO customerDTO) throws ServiceDiscoveryException
+	{
+	    if(customerDTO.getCurrentPhone() != null)
+	    {		
 		PhoneDTO phoneDTO = new RestTemplate()
 				.getForObject(getPhoneURI() + "/phone/" + customerDTO.getCurrentPhone().getId(), PhoneDTO.class);
 
 		customerDTO.setCurrentPhone(phoneDTO);
+	    }
 	}
 
-	public void setCustomerPlan(CustomerDTO customerDTO) {
+	public void setCustomerPlan(CustomerDTO customerDTO) throws ServiceDiscoveryException 
+	{
+	    if(customerDTO.getCurrentPlan() != null)
+	    {
+		
 		PlanDTO planDTO = new RestTemplate()
 				.getForObject(getPlanURI() + "/plan/" + customerDTO.getCurrentPlan().getId(), PlanDTO.class);
 
 		customerDTO.setCurrentPlan(planDTO);
+	    }
 	}
 	
-	public void postNewCustomerPlan(CustomerDTO customerDTO) {
-//		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans", postCustomer.getCurrentPlan(),
-//				PlanDTO.class);
-//		customerDTO.setCurrentPlan(planDTO);
+	public void postNewCustomerPlan(CustomerDTO customerDTO) throws ServiceDiscoveryException 
+	{
+		PlanDTO planDTO = new RestTemplate().postForObject(getPlanURI() + "/plans", customerDTO.getCurrentPlan(),
+				PlanDTO.class);
+		customerDTO.setCurrentPlan(planDTO);
 
 	}
 
-	public void postNewCustomerPhone(CustomerDTO customerDTO) {
-//		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI() + "/phones", customerDTO.getCurrentPhone(),
-//				PhoneDTO.class);
-//		customerDTO.setCurrentPhone(phoneDTO);
+	public void postNewCustomerPhone(CustomerDTO customerDTO) throws ServiceDiscoveryException 
+	{
+		PhoneDTO phoneDTO = new RestTemplate().postForObject(getPhoneURI() + "/phones", customerDTO.getCurrentPhone(),
+				PhoneDTO.class);
+		customerDTO.setCurrentPhone(phoneDTO);
 
 	}
 
 	/*
 	 * @return uri for phone microservice instance
 	 */
-	public URI getPhoneURI() {
+	public URI getPhoneURI() 
+	{
 		List<ServiceInstance> phoneInstances = discoveryClient.getInstances("PhoneMS");
 		ServiceInstance phoneInstance = phoneInstances.get(0);
 		return phoneInstance.getUri();
@@ -66,7 +79,8 @@ public class ControllerService
 	/*
 	 * @return uri for plan microservice instance
 	 */
-	public URI getPlanURI() {
+	public URI getPlanURI() 
+	{
 		List<ServiceInstance> planInstances = discoveryClient.getInstances("PlanMS");
 		ServiceInstance planInstance = planInstances.get(0);
 		return planInstance.getUri();
